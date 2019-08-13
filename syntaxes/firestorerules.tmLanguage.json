@@ -10,6 +10,9 @@
 		},
 		{
 			"include": "#storage"
+		},
+		{
+			"include": "#constants"
 		}
 	],
 	"repository": {
@@ -17,30 +20,57 @@
 			"patterns": [
 				{
 					"name": "keyword.control.firestorerules",
-					"match": "\\b(if|return)\\b"
+					"match": "\\b(if|return|match|allow)\\b"
 				},
 				{
-					"name":"keyword.operator",
+					"name": "keyword.operator.firestorerules",
 					"match": "(==|!=|&&|is|\\|{2}|<=|>=|<|>)"
 				}
 			]
 		},
 		"strings": {
-			"name": "string.quoted.double.firestorerules",
-			"begin": "\"",
-			"end": "\"",
 			"patterns": [
 				{
-					"name": "constant.character.escape.firestorerules",
-					"match": "\\\\."
+					"name": "string.quoted.firestorerules",
+					"begin": "\"|\\'",
+					"end": "\"|\\'",
+					"patterns": [
+						{
+							"name": "constant.character.escape.firestorerules",
+							"match": "\\\\."
+						}
+					]
+				},
+				{
+					"name": "string.unquoted.firestorerules",
+					"begin": "\\/",
+					"end": "\\/|\\}|\\)",
+					"patterns": [
+						{
+							"name": "constant.character.escape.firestorerules",
+							"match": "\\\\."
+						}
+					]
 				}
 			]
 		},
 		"storage": {
 			"patterns": [
 				{
-					"name": "storage.type",
+					"name": "storage.type.firestorerules",
 					"match": "\\b(bool|bytes|constraint|duration|float|int|latlng|list|number|map|string|timestamp|path)\\b"
+				}
+			]
+		},
+		"constants": {
+			"patterns": [
+				{
+					"name": "constant.numeric.firestorerules",
+					"match": "\\d+"
+				},
+				{
+					"name": "constant.language.firestorerules",
+					"match": "\\b(true|false|write|read|get|list|update|delete|create)\\b"
 				}
 			]
 		}
