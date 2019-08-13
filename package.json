@@ -9,6 +9,9 @@
 	"categories": [
 		"Programming Languages"
 	],
+	"activationEvents": [
+		"onLanguage:firestorerules"
+	],
 	"main": "./out/extension.js",
 	"contributes": {
         "languages": [{

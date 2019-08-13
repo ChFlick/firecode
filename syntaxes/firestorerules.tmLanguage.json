@@ -7,14 +7,23 @@
 		},
 		{
 			"include": "#strings"
+		},
+		{
+			"include": "#storage"
 		}
 	],
 	"repository": {
 		"keywords": {
-			"patterns": [{
-				"name": "keyword.control.firestorerules",
-				"match": "\\b(if|while|for|return)\\b"
-			}]
+			"patterns": [
+				{
+					"name": "keyword.control.firestorerules",
+					"match": "\\b(if|return)\\b"
+				},
+				{
+					"name":"keyword.operator",
+					"match": "(==|!=|&&|is|\\|{2}|<=|>=|<|>)"
+				}
+			]
 		},
 		"strings": {
 			"name": "string.quoted.double.firestorerules",
@@ -24,6 +33,14 @@
 				{
 					"name": "constant.character.escape.firestorerules",
 					"match": "\\\\."
+				}
+			]
+		},
+		"storage": {
+			"patterns": [
+				{
+					"name": "storage.type",
+					"match": "\\b(bool|bytes|constraint|duration|float|int|latlng|list|number|map|string|timestamp|path)\\b"
 				}
 			]
 		}
