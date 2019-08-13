@@ -7,18 +7,22 @@
 		"vscode": "^1.37.0"
 	},
 	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"onCommand:extension.helloWorld"
+		"Programming Languages"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
-		"commands": [{
-			"command": "extension.helloWorld",
-			"title": "Hello World"
-		}]
-	},
+        "languages": [{
+            "id": "firestorerules",
+            "aliases": ["Firestore Rules", "firestore"],
+            "extensions": ["rules","rule"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "firestorerules",
+            "scopeName": "source.firebase",
+            "path": "./syntaxes/firestorerules.tmLanguage.json"
+        }]
+    },
 	"scripts": {
 		"vscode:prepublish": "yarn run compile",
 		"compile": "tsc -p ./",
