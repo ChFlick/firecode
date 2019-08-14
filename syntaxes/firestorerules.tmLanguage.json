@@ -13,6 +13,12 @@
 		},
 		{
 			"include": "#constants"
+		},
+		{
+			"include": "#variables"
+		},
+		{
+			"include": "#comments"
 		}
 	],
 	"repository": {
@@ -20,7 +26,7 @@
 			"patterns": [
 				{
 					"name": "keyword.control.firestorerules",
-					"match": "\\b(if|return|match|allow)\\b"
+					"match": "\\b(if|return|match|allow|service)\\b"
 				},
 				{
 					"name": "keyword.operator.firestorerules",
@@ -43,8 +49,7 @@
 				},
 				{
 					"name": "string.unquoted.firestorerules",
-					"begin": "\\/",
-					"end": "\\/|\\}|\\)",
+					"match": "\\/\\w((\\w|\\/)*)(?=\\W)",
 					"patterns": [
 						{
 							"name": "constant.character.escape.firestorerules",
@@ -62,6 +67,18 @@
 				}
 			]
 		},
+		"variables": {
+			"patterns": [
+				{
+					"name": "variable.parameter.asinput",
+					"match": "\\$\\((\\w+)\\)"
+				},
+				{
+					"name": "variable.parameter.frompath",
+					"match": "\\{(\\w+)\\}"
+				}
+			]
+		},
 		"constants": {
 			"patterns": [
 				{
@@ -73,6 +90,10 @@
 					"match": "\\b(true|false|write|read|get|list|update|delete|create)\\b"
 				}
 			]
+		},
+		"comments": {
+			"match": "\/\/.*",
+			"name": "comment.line"
 		}
 	},
 	"scopeName": "source.firebase"

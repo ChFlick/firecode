@@ -4,7 +4,7 @@
 	"description": "Firestore Security Rules Syntax Highlighting and Suggestions",
 	"version": "0.0.1",
 	"engines": {
-		"vscode": "^1.37.0"
+		"vscode": "^1.2.0"
 	},
 	"categories": [
 		"Programming Languages"
