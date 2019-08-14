@@ -1,24 +1,13 @@
 {
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"name": "firestorerules",
+	"scopeName": "source.firebase",
 	"patterns": [
 		{
-			"include": "#keywords"
+			"include": "#firestore-root"
 		},
 		{
-			"include": "#strings"
-		},
-		{
-			"include": "#storage"
-		},
-		{
-			"include": "#constants"
-		},
-		{
-			"include": "#variables"
-		},
-		{
-			"include": "#comments"
+			"include": "#version"
 		}
 	],
 	"repository": {
@@ -59,14 +48,6 @@
 				}
 			]
 		},
-		"storage": {
-			"patterns": [
-				{
-					"name": "storage.type.firestorerules",
-					"match": "\\b(bool|bytes|constraint|duration|float|int|latlng|list|number|map|string|timestamp|path)\\b"
-				}
-			]
-		},
 		"variables": {
 			"patterns": [
 				{
@@ -94,7 +75,73 @@
 		"comments": {
 			"match": "\/\/.*",
 			"name": "comment.line"
+		},
+		"type-primitive": {
+			"name": "support.type.primitive.fs",
+			"match": "\\b(bool|bytes|constraint|duration|float|int|latlng|list|number|map|string|timestamp|path)\\b"
+		},
+		"type-builtin-literals": {
+			"name": "support.type.builtin.fs",
+			"match": "\\b(true|false|write|read|get|list|update|delete|create)\\b"
+		},
+		"version": {
+			"name": "comment.block.documentation.fs",
+			"match": "rules_version? =? '\\d'?;"
+		},
+		"firestore-root": {
+			"name": "meta.root.fs",
+			"begin": "(service) (cloud)\\.(firestore) {",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.control.fs"
+				},
+				"2": {
+					"name": "keyword.control.fs"
+				},
+				"3": {
+					"name": "storage.type.class.fs"
+				}
+			},
+			"end": "\\b\\}",
+			"patterns": [
+				{
+					"include": "#document-matcher"
+				}
+			]
+		},
+		"document-matcher": {
+			"name": "meta.matcher.fs",
+			"begin": "match",
+			"beginCaptures": {
+				"0": {
+					"name": "keyword.control.fs"
+				}
+			},
+			"end": "\\b\\}",
+			"patterns": [
+				{
+					"include": "#document-matcher"
+				},
+				{
+					"include": "#matcher-path"
+				}
+			]
+		},
+		"matcher-path": {
+			"name": "string.unquoted.fs",
+			"begin": "\\/",
+			"end": "(?= \\{$)",
+			"patterns": [
+				{
+					"include": "#matcher-param"
+				}
+			]
+		},
+		"matcher-param": {
+			"name": "variable.parameter.fs",
+			"begin": "\\{",
+			"end": "\\}",
+			"match": "\\{\\w+//}"
 		}
-	},
-	"scopeName": "source.firebase"
+	}
 }
