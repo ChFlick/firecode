@@ -129,7 +129,7 @@
 		},
 		"matcher-path": {
 			"name": "string.unquoted.fs",
-			"begin": "\\/",
+			"begin": "(?<=match) \\/",
 			"end": "(?= \\{$)",
 			"patterns": [
 				{
@@ -140,8 +140,7 @@
 		"matcher-param": {
 			"name": "variable.parameter.fs",
 			"begin": "\\{",
-			"end": "\\}",
-			"match": "\\{\\w+//}"
+			"end": "\\}"
 		}
 	}
 }
