@@ -8,6 +8,9 @@
 		},
 		{
 			"include": "#version"
+		},
+		{
+			"include": "#comments"
 		}
 	],
 	"repository": {
@@ -45,18 +48,6 @@
 							"match": "\\\\."
 						}
 					]
-				}
-			]
-		},
-		"variables": {
-			"patterns": [
-				{
-					"name": "variable.parameter.asinput",
-					"match": "\\$\\((\\w+)\\)"
-				},
-				{
-					"name": "variable.parameter.frompath",
-					"match": "\\{(\\w+)\\}"
 				}
 			]
 		},
@@ -180,7 +171,7 @@
 					"name": "support.type.builtin.fs"
 				}
 			},
-			"end": "\\;|(allow)|\\}"
+			"end": "\\;|(?!allow)|(?!match)|\\}"
 		}
 	}
 }
