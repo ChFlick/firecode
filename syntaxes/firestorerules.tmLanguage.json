@@ -124,6 +124,12 @@
 				},
 				{
 					"include": "#matcher-path"
+				},
+				{
+					"include": "#function-declaration"
+				},
+				{
+					"include": "#allow-statement"
 				}
 			]
 		},
@@ -141,6 +147,40 @@
 			"name": "variable.parameter.fs",
 			"begin": "\\{",
 			"end": "\\}"
+		},
+		"function-declaration": {
+			"name": "meta.function.fs",
+			"begin": "(function)\\s+(\\w+)\\s?(\\()([^)]*)(\\))\\s+\\{",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.control.fs"
+				},
+				"2": {
+					"name": "storage.type.function.fs"
+				},
+				"3": {
+					"name": "punctuation.definition.parameters.fs"
+				},
+				"4": {
+					"name": "variable.parameter.function.fs"
+				},
+				"5": {
+					"name": "punctuation.definition.parameters.fs"
+				}
+			},
+			"end": "(?<!\\w)\\}"
+		},
+		"allow-statement": {
+			"begin": "(allow)\\s((write|read|get|list|update|delete|create)(\\s*,\\s*(write|read|get|list|update|delete|create))*)",
+			"beginCaptures": {
+				"1": {
+					"name": "storage.type.function.fs"
+				},
+				"2": {
+					"name": "support.type.builtin.fs"
+				}
+			},
+			"end": "\\;|(allow)|\\}"
 		}
 	}
 }
