@@ -14,43 +14,6 @@
 		}
 	],
 	"repository": {
-		"keywords": {
-			"patterns": [
-				{
-					"name": "keyword.control.firestorerules",
-					"match": "\\b(if|return|match|allow|service)\\b"
-				},
-				{
-					"name": "keyword.operator.firestorerules",
-					"match": "(==|!=|&&|is|\\|{2}|<=|>=|<|>)"
-				}
-			]
-		},
-		"strings": {
-			"patterns": [
-				{
-					"name": "string.quoted.firestorerules",
-					"begin": "\"|\\'",
-					"end": "\"|\\'",
-					"patterns": [
-						{
-							"name": "constant.character.escape.firestorerules",
-							"match": "\\\\."
-						}
-					]
-				},
-				{
-					"name": "string.unquoted.firestorerules",
-					"match": "\\/\\w((\\w|\\/)*)(?=\\W)",
-					"patterns": [
-						{
-							"name": "constant.character.escape.firestorerules",
-							"match": "\\\\."
-						}
-					]
-				}
-			]
-		},
 		"constants": {
 			"patterns": [
 				{
@@ -96,11 +59,11 @@
 			"end": "\\b\\}",
 			"patterns": [
 				{
-					"include": "#document-matcher"
+					"include": "#match"
 				}
 			]
 		},
-		"document-matcher": {
+		"match": {
 			"name": "meta.matcher.fs",
 			"begin": "match",
 			"beginCaptures": {
@@ -111,7 +74,7 @@
 			"end": "\\b\\}",
 			"patterns": [
 				{
-					"include": "#document-matcher"
+					"include": "#match"
 				},
 				{
 					"include": "#matcher-path"
@@ -121,6 +84,9 @@
 				},
 				{
 					"include": "#allow-statement"
+				},
+				{
+					"include": "#comments"
 				}
 			]
 		},
@@ -159,7 +125,12 @@
 					"name": "punctuation.definition.parameters.fs"
 				}
 			},
-			"end": "(?<!\\w)\\}"
+			"end": "(?<!\\w)\\}",
+			"patterns": [
+				{
+					"include": "#comments"
+				}
+			]
 		},
 		"allow-statement": {
 			"name": "meta.allow.fs",
@@ -176,12 +147,69 @@
 			"patterns": [
 				{
 					"include": "#if-statement"
+				},
+				{
+					"include": "#function-call"
+				},
+				{
+					"include": "#operators"
 				}
 			]
 		},
 		"if-statement": {
 			"name": "keyword.control.fs",
 			"match": "if"
+		},
+		"function-call": {
+			"name": "meta.functioncall.fs",
+			"begin": "(\\w+)\\(",
+			"beginCaptures": {
+				"1": {
+					"name": "storage.type.function.fs"
+				}
+			},
+			"end": "\\)",
+			"patterns": [
+				{
+					"include": "#strings"
+				},
+				{
+					"name": "variable.parameter.functioncall.fs",
+					"match": "(?<=[\\(,])\\s*(\\w|\\.)+\\s*(?=[\\),])"
+				}
+			]
+		},
+		"operators": {
+			"name": "keyword.operator.firestorerules",
+			"match": "(==|!=|&&|is|\\|{2}|<=|>=|<|>|!)"
+		},
+		"strings": {
+			"patterns": [
+				{
+					"include": "#strings-quoted"
+				},
+				{
+					"name": "string.unquoted.firestorerules",
+					"match": "\\/\\w((\\w|\\/)*)(?=\\W)",
+					"patterns": [
+						{
+							"name": "constant.character.escape.firestorerules",
+							"match": "\\\\."
+						}
+					]
+				}
+			]
+		},
+		"strings-quoted": {
+			"name": "string.quoted.firestorerules",
+			"begin": "\\\"|'",
+			"end": "\\\"|'",
+			"patterns": [
+				{
+					"name": "constant.character.escape.firestorerules",
+					"match": "\\\\."
+				}
+			]
 		}
 	}
 }
