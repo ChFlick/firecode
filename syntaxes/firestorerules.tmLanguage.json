@@ -162,7 +162,8 @@
 			"end": "(?<!\\w)\\}"
 		},
 		"allow-statement": {
-			"begin": "(allow)\\s((write|read|get|list|update|delete|create)(\\s*,\\s*(write|read|get|list|update|delete|create))*)",
+			"name": "meta.allow.fs",
+			"begin": "(allow)\\s((write|read|get|list|update|delete|create)(\\s*,\\s*(write|read|get|list|update|delete|create))*)\\s*\\:",
 			"beginCaptures": {
 				"1": {
 					"name": "storage.type.function.fs"
@@ -171,7 +172,16 @@
 					"name": "support.type.builtin.fs"
 				}
 			},
-			"end": "\\;|(?!allow)|(?!match)|\\}"
+			"end": "\\;|(?=allow)|(?=match)|\\}",
+			"patterns": [
+				{
+					"include": "#if-statement"
+				}
+			]
+		},
+		"if-statement": {
+			"name": "keyword.control.fs",
+			"match": "if"
 		}
 	}
 }
