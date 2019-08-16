@@ -36,7 +36,7 @@
 		},
 		"type-builtin-literals": {
 			"name": "support.type.builtin.fs",
-			"match": "\\b(true|false|write|read|get|list|update|delete|create)\\b"
+			"match": "\\b(true|false|null|undefined)\\b"
 		},
 		"version": {
 			"name": "comment.block.documentation.fs",
@@ -110,10 +110,10 @@
 			"begin": "(function)\\s+(\\w+)\\s?(\\()([^)]*)(\\))\\s+\\{",
 			"beginCaptures": {
 				"1": {
-					"name": "keyword.control.fs"
+					"name": "storage.type.function.fs"
 				},
 				"2": {
-					"name": "storage.type.function.fs"
+					"name": "support.function.fs"
 				},
 				"3": {
 					"name": "punctuation.definition.parameters.fs"
@@ -129,6 +129,9 @@
 			"patterns": [
 				{
 					"include": "#comments"
+				},
+				{
+					"include": "#expression"
 				}
 			]
 		},
@@ -152,7 +155,7 @@
 					"include": "#function-call"
 				},
 				{
-					"include": "#operators"
+					"include": "#expression"
 				}
 			]
 		},
@@ -165,7 +168,7 @@
 			"begin": "(\\w+)\\(",
 			"beginCaptures": {
 				"1": {
-					"name": "storage.type.function.fs"
+					"name": "support.function.fs"
 				}
 			},
 			"end": "\\)",
@@ -208,6 +211,57 @@
 				{
 					"name": "constant.character.escape.firestorerules",
 					"match": "\\\\."
+				}
+			]
+		},
+		"expression": {
+			"patterns": [
+				{
+					"include": "#paren-expression"
+				},
+				{
+					"include": "#operators"
+				},
+				{
+					"include": "#type-primitive"
+				},
+				{
+					"include": "type-builtin-literals"
+				},
+				{
+					"include": "#identifiers"
+				},
+				{
+					"include": "#strings"
+				}
+			]
+		},
+		"paren-expression": {
+			"paren-expression": {
+				"begin": "\\(",
+				"beginCaptures": {
+					"0": {
+						"name": "meta.brace.round.fs"
+					}
+				},
+				"end": "\\)",
+				"endCaptures": {
+					"0": {
+						"name": "meta.brace.round.fs"
+					}
+				},
+				"patterns": [
+					{
+						"include": "#expression"
+					}
+				]
+			}
+		},
+		"identifiers": {
+			"patterns": [
+				{
+					"name": "variable.parameter.fs",
+					"match": "([_$[:alpha:]][_$[:alnum:]]*)"
 				}
 			]
 		}
