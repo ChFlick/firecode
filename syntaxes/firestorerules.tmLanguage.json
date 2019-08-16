@@ -128,6 +128,21 @@
 			"end": "(?<!\\w)\\}",
 			"patterns": [
 				{
+					"include": "#function-expression"
+				}
+			]
+		},
+		"function-expression": {
+			"name": "meta.function.expression.fs",
+			"begin": "return ",
+			"beginCaptures": {
+				"0": {
+					"name": "keyword.control.return.fs"
+				}
+			},
+			"end": "(?=\\})",
+			"patterns": [
+				{
 					"include": "#comments"
 				},
 				{
@@ -152,9 +167,6 @@
 					"include": "#if-statement"
 				},
 				{
-					"include": "#function-call"
-				},
-				{
 					"include": "#expression"
 				}
 			]
@@ -175,6 +187,9 @@
 			"patterns": [
 				{
 					"include": "#strings"
+				},
+				{
+					"include": "#identifiers"
 				},
 				{
 					"name": "variable.parameter.functioncall.fs",
@@ -227,6 +242,9 @@
 				},
 				{
 					"include": "type-builtin-literals"
+				},
+				{
+					"include": "#function-call"
 				},
 				{
 					"include": "#identifiers"
