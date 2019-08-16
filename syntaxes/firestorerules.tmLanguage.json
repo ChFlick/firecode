@@ -32,7 +32,7 @@
 		},
 		"type-primitive": {
 			"name": "support.type.primitive.fs",
-			"match": "\\b(bool|bytes|constraint|duration|float|int|latlng|list|number|map|string|timestamp|path)\\b"
+			"match": "\\b(bool|bytes|constraint|duration|float|int|latlng|list|number|map|string|timestamp|path|request)\\b"
 		},
 		"type-builtin-literals": {
 			"name": "support.type.builtin.fs",
@@ -241,7 +241,7 @@
 					"include": "#type-primitive"
 				},
 				{
-					"include": "type-builtin-literals"
+					"include": "#type-builtin-literals"
 				},
 				{
 					"include": "#function-call"
