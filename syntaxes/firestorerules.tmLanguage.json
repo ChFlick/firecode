@@ -59,11 +59,11 @@
 			"end": "\\b\\}",
 			"patterns": [
 				{
-					"include": "#match"
+					"include": "#matcher"
 				}
 			]
 		},
-		"match": {
+		"matcher": {
 			"name": "meta.matcher.fs",
 			"begin": "match",
 			"beginCaptures": {
@@ -74,7 +74,7 @@
 			"end": "\\b\\}",
 			"patterns": [
 				{
-					"include": "#match"
+					"include": "#matcher"
 				},
 				{
 					"include": "#matcher-path"
@@ -102,7 +102,7 @@
 		},
 		"matcher-param": {
 			"name": "variable.parameter.fs",
-			"begin": "\\{",
+			"begin": "\\{\\s*",
 			"end": "\\}"
 		},
 		"function-declaration": {

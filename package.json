@@ -25,7 +25,7 @@
             "scopeName": "source.firebase",
             "path": "./syntaxes/firestorerules.tmLanguage.json"
         }]
-    },
+	},
 	"scripts": {
 		"vscode:prepublish": "yarn run compile",
 		"compile": "tsc -p ./",
