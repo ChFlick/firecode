@@ -2,7 +2,7 @@
 	"name": "firecode",
 	"displayName": "Firestore Rules",
 	"description": "Firestore Security Rules Syntax Highlighting and Suggestions",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"engines": {
 		"vscode": "^1.2.0"
 	},
