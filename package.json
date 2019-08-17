@@ -2,7 +2,7 @@
 	"name": "firecode",
 	"displayName": "Firestore Rules",
 	"description": "Firestore Security Rules Syntax Highlighting and Suggestions",
-	"publisher": "Christoph Flick",
+	"publisher": "ChFlick",
 	"icon": "resources/firecode.png",
 	"version": "0.0.0",
 	"homepage": "https://github.com/ChFlick/firecode/blob/master/README.md",
