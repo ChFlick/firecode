@@ -2,8 +2,13 @@
 
 All notable changes to the "firecode" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-- Initial release
+## [1.0.0] - 2019-08-17
+- Initial release.
+
+### Added
+- Syntax Highlighting support.
+- Mouseover Information support.
