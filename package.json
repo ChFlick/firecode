@@ -3,7 +3,7 @@
 	"displayName": "Firestore Rules",
 	"description": "Firestore Security Rules Syntax Highlighting and Suggestions",
 	"icon": "./firecode.png",
-	"version": "1.0.0",
+	"version": "0.0.0",
 	"homepage": "https://github.com/ChFlick/firecode/blob/master/README.md",
 	"repository": {
 		"type": "git",
