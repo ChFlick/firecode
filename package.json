@@ -4,7 +4,7 @@
 	"description": "Firestore Security Rules Syntax Highlighting and Suggestions",
 	"publisher": "ChFlick",
 	"icon": "resources/firecode.png",
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"homepage": "https://github.com/ChFlick/firecode/blob/master/README.md",
 	"keywords": [
 		"firebase",
@@ -33,17 +33,27 @@
 	],
 	"main": "./out/extension.js",
 	"contributes": {
-        "languages": [{
-            "id": "firestorerules",
-            "aliases": ["Firestore Rules", "firestore"],
-            "extensions": ["rules","rule"],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "firestorerules",
-            "scopeName": "source.firebase",
-            "path": "./syntaxes/firestorerules.tmLanguage.json"
-        }]
+		"languages": [
+			{
+				"id": "firestorerules",
+				"aliases": [
+					"Firestore Rules",
+					"firestore"
+				],
+				"extensions": [
+					"rules",
+					"rule"
+				],
+				"configuration": "./language-configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "firestorerules",
+				"scopeName": "source.firebase",
+				"path": "./syntaxes/firestorerules.tmLanguage.json"
+			}
+		]
 	},
 	"scripts": {
 		"vscode:prepublish": "yarn run compile",
