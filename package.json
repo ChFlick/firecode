@@ -4,6 +4,18 @@
 	"description": "Firestore Security Rules Syntax Highlighting and Suggestions",
 	"icon": "./firecode.png",
 	"version": "1.0.0",
+	"homepage": "https://github.com/ChFlick/firecode/blob/master/README.md",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ChFlick/firecode"
+	},
+	"bugs": {
+		"url": "https://github.com/ChFlick/firecode/issues"
+	},
+	"galleryBanner": {
+		"color": "#FFCA49",
+		"theme": "light"
+	},
 	"engines": {
 		"vscode": "^1.2.0"
 	},
