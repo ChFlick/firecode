@@ -51,6 +51,34 @@ const typeDoc: Readonly<Documentation> = {
             }
         }
     },
+    list: {
+        doc: new MarkdownString(
+            `List type.  
+            Items are not necessarily homogenous.`),
+        kind: CompletionItemKind.Class,
+        childs: {
+            hasAll: {
+                kind: CompletionItemKind.Method,
+                doc: 'Determine whether the list contains all elements in another list.',
+            },
+            hasAny: {
+                kind: CompletionItemKind.Method,
+                doc: 'Determine whether the list contains any element in another list.'
+            },
+            hasOnly: {
+                kind: CompletionItemKind.Method,
+                doc: 'Determine whether all elements in the list are present in another list.'
+            },
+            join: {
+                kind: CompletionItemKind.Method,
+                doc: 'Join the elements in the list into a string, with a separator.'
+            },
+            size: {
+                kind: CompletionItemKind.Method,
+                doc: 'Get the number of values in the list.'
+            }
+        }
+    },
 };
 
 const flatten = (documentation: Documentation): FlatDoc => {
