@@ -221,6 +221,52 @@ const typeDoc: Readonly<Documentation> = {
                 kind: CompletionItemKind.Field
             }
         }
+    },
+    string: {
+        doc: new MarkdownString(
+            `Primitive type representing a string value.  
+            Strings can be lexicographically compared using the ==, !=, >, <, >= and <= operators.  
+            Strings can be concatenated using the + operator.  
+            Sub-strings can be accessed using the index operator [] and the range operator [i:j].  
+            Boolean, integer, float, and null values can be converted into strings using the string() function.  `),
+        kind: CompletionItemKind.Class,
+        childs: {
+            lower: {
+                doc: new MarkdownString(
+                    `*lower() returns rules.String*  
+                    Returns a lowercase version of the input string.  
+                    *returns* non-null rules.String the lowercase string.`),
+                kind: CompletionItemKind.Method
+            },
+            matches: {
+                doc: new MarkdownString(
+                    `*matches(re) returns rules.Boolean*  
+                    Performs a regular expression match on the whole string.  
+                    *returns* non-null rules.Boolean true if the whole string matches, false otherwise.`),
+                kind: CompletionItemKind.Method
+            },
+            split: {
+                doc: new MarkdownString(
+                    `*split(re) returns rules.List*  
+                    Splits a string according to a regular expression.  
+                    *returns* non-null rules.List a list of strings.`),
+                kind: CompletionItemKind.Method
+            },
+            trim: {
+                doc: new MarkdownString(
+                    `*trim() returns rules.String*  
+                    Returns a version of the string with leading and trailing spaces removed.  
+                    *returns* non-null rules.String the trimmed string.`),
+                kind: CompletionItemKind.Method
+            },
+            upper: {
+                doc: new MarkdownString(
+                    `*upper() returns rules.String*  
+                    Returns an uppercase version of the input string.  
+                    *returns* non-null rules.String the uppercase string.`),
+                kind: CompletionItemKind.Method
+            },
+        }
     }
 };
 
