@@ -184,7 +184,7 @@ const typeDoc: Readonly<Documentation> = {
             },
             method: {
                 doc: new MarkdownString('The request method. One of  \n* get\n* list\n* create\n* update\n* delete'),
-                kind: CompletionItemKind.Property
+                kind: CompletionItemKind.EnumMember
             },
             path: {
                 doc: 'Path of the affected resource.',
@@ -200,6 +200,24 @@ const typeDoc: Readonly<Documentation> = {
             time: {
                 doc: new MarkdownString(`When the request was received by the service.  
                     For Firestore write operations that include server-side timestamps, this time will be equal to the server timestamp.`),
+                kind: CompletionItemKind.Property
+            }
+        }
+    },
+    resource: {
+        doc: 'The firestore document being read or written.',
+        kind: CompletionItemKind.Class,
+        childs: {
+            __name__: {
+                doc: 'The full document name, as a path.',
+                kind: CompletionItemKind.Property
+            },
+            data: {
+                doc: 'Map of the document data.',
+                kind: CompletionItemKind.Property
+            },
+            id: {
+                doc: 'String of the document\'s key.',
                 kind: CompletionItemKind.Property
             }
         }
