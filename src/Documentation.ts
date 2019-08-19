@@ -115,15 +115,15 @@ const typeDoc: Readonly<Documentation> = {
                 doc: new MarkdownString(`The new resource value, present on write requests only. It contains the following information:  
                     * \`data\` - a Map of the document data.  
                     * \`id\` - a String of the document's key.`),
-                kind: CompletionItemKind.Property,
+                kind: CompletionItemKind.Field,
                 childs: {
                     data: {
                         doc: 'A map of the document\'s data.',
-                        kind: CompletionItemKind.Property
+                        kind: CompletionItemKind.Field
                     },
                     id: {
                         doc: 'A string of the document\'s key.',
-                        kind: CompletionItemKind.Property
+                        kind: CompletionItemKind.Field
                     }
                 }
             },
@@ -131,46 +131,46 @@ const typeDoc: Readonly<Documentation> = {
                 doc: new MarkdownString(`Request authentication context. It contains the following information:  
                     * \`uid\` - the UID of the requesting user.  
                     * \`token\` - a map of JWT token claims.`),
-                kind: CompletionItemKind.Property,
+                kind: CompletionItemKind.Field,
                 childs: {
                     uid: {
                         doc: 'The UID of the requesting user.',
-                        kind: CompletionItemKind.Property
+                        kind: CompletionItemKind.Field
                     },
                     token: {
                         doc: 'A map of JWT token claims.',
-                        kind: CompletionItemKind.Property,
+                        kind: CompletionItemKind.Field,
                         childs: {
                             email: {
                                 doc: 'The email address associated with the account, if present.',
-                                kind: CompletionItemKind.Property,
+                                kind: CompletionItemKind.Field,
                             },
                             email_verified: {
                                 doc: 'true if the user has verified they have access to the email address. Some providers automatically verify email addresses they own.',
-                                kind: CompletionItemKind.Property,
+                                kind: CompletionItemKind.Field,
                             },
                             phone_number: {
                                 doc: 'The phone number associated with the account, if present.',
-                                kind: CompletionItemKind.Property,
+                                kind: CompletionItemKind.Field,
                             },
                             name: {
                                 doc: 'The user\'s display name, if set.',
-                                kind: CompletionItemKind.Property,
+                                kind: CompletionItemKind.Field,
                             },
                             sub: {
                                 doc: 'The user\'s Firebase UID. This is unique within a project.',
-                                kind: CompletionItemKind.Property,
+                                kind: CompletionItemKind.Field,
                             },
                             firebase: {
                                 doc: 'Firebase data.',
-                                kind: CompletionItemKind.Property,
+                                kind: CompletionItemKind.Field,
                                 childs: {
                                     identities: {
                                         doc: `Dictionary of all the identities that are associated with this user's account.
                                             The keys of the dictionary can be any of the following: email, phone, google.com, facebook.com, github.com, twitter.com.
                                             The values of the dictionary are arrays of unique identifiers for each identity provider associated with the account.
                                             For example, auth.token.firebase.identities["google.com"][0] contains the first Google user ID associated with the account.`,
-                                        kind: CompletionItemKind.Property
+                                        kind: CompletionItemKind.Field
                                     },
                                     sign_in_provider: {
                                         doc: `The sign-in provider used to obtain this token.
@@ -188,19 +188,19 @@ const typeDoc: Readonly<Documentation> = {
             },
             path: {
                 doc: 'Path of the affected resource.',
-                kind: CompletionItemKind.Property
+                kind: CompletionItemKind.Field
             },
             query: {
                 doc: new MarkdownString(`Map of query properties, when present.  
                     * limit - query limit clause.  
                     * offset - query offset clause.  
                     * orderBy - query orderBy clause.`),
-                kind: CompletionItemKind.Property
+                kind: CompletionItemKind.Field
             },
             time: {
                 doc: new MarkdownString(`When the request was received by the service.  
                     For Firestore write operations that include server-side timestamps, this time will be equal to the server timestamp.`),
-                kind: CompletionItemKind.Property
+                kind: CompletionItemKind.Field
             }
         }
     },
@@ -210,15 +210,15 @@ const typeDoc: Readonly<Documentation> = {
         childs: {
             __name__: {
                 doc: 'The full document name, as a path.',
-                kind: CompletionItemKind.Property
+                kind: CompletionItemKind.Field
             },
             data: {
                 doc: 'Map of the document data.',
-                kind: CompletionItemKind.Property
+                kind: CompletionItemKind.Field
             },
             id: {
                 doc: 'String of the document\'s key.',
-                kind: CompletionItemKind.Property
+                kind: CompletionItemKind.Field
             }
         }
     }
