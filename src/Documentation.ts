@@ -267,6 +267,76 @@ const typeDoc: Readonly<Documentation> = {
                 kind: CompletionItemKind.Method
             },
         }
+    },
+    timestamp: {
+        doc: 'A timestamp in UTC with nanosecond accuracy',
+        kind: CompletionItemKind.Class,
+        childs: {
+            date: {
+                doc: new MarkdownString(
+                    `timestamp.date()  
+                    *date() returns rules.Timestamp*  
+                    Timestamp value containing year, month, and day only.  
+                    *returns* non-null rules.Timestamp The timestamp.`),
+                kind: CompletionItemKind.Method
+            },
+            day: {
+                doc: new MarkdownString(
+                    `*day() returns rules.Integer*  
+                    Get the day value of the timestamp.  
+                    *returns* non-null rules.Integer day value.`),
+                kind: CompletionItemKind.Method
+            },
+            dayOfWeek: {
+                doc: new MarkdownString(
+                    `*dayOfWeek() returns rules.Integer*  
+                    Get the day of the week as a value from 1 to 7.  
+                    *returns* non-null rules.Integer the day of the week.`),
+                kind: CompletionItemKind.Method
+            },
+            dayOfYear: {
+                doc: new MarkdownString(
+                    `*dayOfYear() returns rules.Integer*  
+                    Get the day of the year as a value from 1 to 366.  
+                    *returns* non-null rules.Integer day of the year.`),
+                kind: CompletionItemKind.Method
+            },
+            hours: {
+                doc: new MarkdownString(
+                    `*hours() returns rules.Integer*  
+                    Get the hours value of the timestamp.  
+                    *returns* non-null rules.Integer hours value.`),
+                kind: CompletionItemKind.Method
+            },
+            minutes: {
+                doc: new MarkdownString(
+                    `*minutes() returns rules.Integer*  
+                    Get the minutes value of the timestamp.  
+                    *returns* non-null rules.Integer minutes value.`),
+                kind: CompletionItemKind.Method
+            },
+            month: {
+                doc: new MarkdownString(
+                    `*month() returns rules.Integer*  
+                    Get the month value of the timestamp.  
+                    *returns* non-null rules.Integer month value.`),
+                kind: CompletionItemKind.Method
+            },
+            toMillis: {
+                doc: new MarkdownString(
+                    `*toMillis() returns rules.Integer*  
+                    Get the time in milliseconds since the epoch.  
+                    *returns* non-null rules.Integer time in milliseconds.`),
+                kind: CompletionItemKind.Method
+            },
+            year: {
+                doc: new MarkdownString(
+                    `*year() returns rules.Integer*  
+                    Get the year value of the timestamp.  
+                    *returns* non-null rules.Integer year value.`),
+                kind: CompletionItemKind.Method
+            },
+        }
     }
 };
 
