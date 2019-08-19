@@ -79,6 +79,20 @@ const typeDoc: Readonly<Documentation> = {
             }
         }
     },
+    map: {
+        doc: 'Map type, used for simple key-value mappings.',
+        kind: CompletionItemKind.Class,
+        childs: {
+            keys: {
+                kind: CompletionItemKind.Method,
+                doc: 'Get the list of keys in the map.',
+            },
+            values: {
+                kind: CompletionItemKind.Method,
+                doc: 'Get the list of values in the map.'
+            }
+        }
+    },
 };
 
 const flatten = (documentation: Documentation): FlatDoc => {
