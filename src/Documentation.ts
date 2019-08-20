@@ -129,19 +129,13 @@ const typeDoc: Readonly<Documentation> = {
         childs: {
             nanos: {
                 kind: CompletionItemKind.Method,
-                doc: new MarkdownString(
-                    `duration.nanos()  
-                    *nanos() returns rules.Integer*  
-                    Get the nanoseconds portion (signed) of the duration from -999,999,999 to +999,999,999 inclusive.  
-                    *returns* non-null rules.Integer nanoseconds portion of the dutation.`)
+                header: 'nanos() returns rules.Integer',
+                doc: 'Get the nanoseconds portion (signed) of the duration from -999,999,999 to +999,999,999 inclusive.'
             },
             seconds: {
                 kind: CompletionItemKind.Method,
-                doc: new MarkdownString(
-                    `duration.seconds()  
-                    *seconds() returns rules.Integer*  
-                    Get the seconds portion (signed) of the duration from -315,576,000,000 to +315,576,000,000 inclusive.  
-                    *returns* non-null rules.Integer seconds portion of the dutation.`)
+                header: 'seconds() returns rules.Integer',
+                doc: 'Get the seconds portion (signed) of the duration from -315,576,000,000 to +315,576,000,000 inclusive.'
             }
         }
     },
@@ -344,38 +338,28 @@ const typeDoc: Readonly<Documentation> = {
         kind: CompletionItemKind.Class,
         childs: {
             lower: {
-                doc: new MarkdownString(
-                    `*lower() returns rules.String*  
-                    Returns a lowercase version of the input string.  
-                    *returns* non-null rules.String the lowercase string.`),
+                header: 'lower() returns rules.String',
+                doc: 'Returns a lowercase version of the input string.',
                 kind: CompletionItemKind.Method
             },
             matches: {
-                doc: new MarkdownString(
-                    `*matches(re) returns rules.Boolean*  
-                    Performs a regular expression match on the whole string.  
-                    *returns* non-null rules.Boolean true if the whole string matches, false otherwise.`),
+                header: 'matches(re) returns rules.Boolean',
+                doc: 'Performs a regular expression match on the whole string.',
                 kind: CompletionItemKind.Method
             },
             split: {
-                doc: new MarkdownString(
-                    `*split(re) returns rules.List*  
-                    Splits a string according to a regular expression.  
-                    *returns* non-null rules.List a list of strings.`),
+                header: 'split(re) returns rules.List',
+                doc: 'Splits a string according to a regular expression.',
                 kind: CompletionItemKind.Method
             },
             trim: {
-                doc: new MarkdownString(
-                    `*trim() returns rules.String*  
-                    Returns a version of the string with leading and trailing spaces removed.  
-                    *returns* non-null rules.String the trimmed string.`),
+                header: 'trim() returns rules.String',
+                doc: 'Returns a version of the string with leading and trailing spaces removed.',
                 kind: CompletionItemKind.Method
             },
             upper: {
-                doc: new MarkdownString(
-                    `*upper() returns rules.String*  
-                    Returns an uppercase version of the input string.  
-                    *returns* non-null rules.String the uppercase string.`),
+                header: 'upper() returns rules.String',
+                doc: 'Returns an uppercase version of the input string.',
                 kind: CompletionItemKind.Method
             },
         }
@@ -385,81 +369,58 @@ const typeDoc: Readonly<Documentation> = {
         kind: CompletionItemKind.Class,
         childs: {
             date: {
-                doc: new MarkdownString(
-                    `timestamp.date()  
-                    *date() returns rules.Timestamp*  
-                    Timestamp value containing year, month, and day only.  
-                    *returns* non-null rules.Timestamp The timestamp.`),
+                header: 'date() returns rules.Timestamp',
+                doc: 'Timestamp value containing year, month, and day only.',
                 kind: CompletionItemKind.Method
             },
             day: {
-                doc: new MarkdownString(
-                    `*day() returns rules.Integer*  
-                    Get the day value of the timestamp.  
-                    *returns* non-null rules.Integer day value.`),
+                header: 'day() returns rules.Integer',
+                doc: 'Get the day value of the timestamp.',
                 kind: CompletionItemKind.Method
             },
             dayOfWeek: {
-                doc: new MarkdownString(
-                    `*dayOfWeek() returns rules.Integer*  
-                    Get the day of the week as a value from 1 to 7.  
-                    *returns* non-null rules.Integer the day of the week.`),
+                header: 'dayOfWeek() returns rules.Integer',
+                doc: 'Get the day of the week as a value from 1 to 7.',
                 kind: CompletionItemKind.Method
             },
             dayOfYear: {
-                doc: new MarkdownString(
-                    `*dayOfYear() returns rules.Integer*  
-                    Get the day of the year as a value from 1 to 366.  
-                    *returns* non-null rules.Integer day of the year.`),
+                header: 'dayOfYear() returns rules.Integer',
+                doc: 'Get the day of the year as a value from 1 to 366.',
                 kind: CompletionItemKind.Method
             },
             hours: {
-                doc: new MarkdownString(
-                    `*hours() returns rules.Integer*  
-                    Get the hours value of the timestamp.  
-                    *returns* non-null rules.Integer hours value.`),
+                header: 'hours() returns rules.Integer',
+                doc: 'Get the hours value of the timestamp.',
                 kind: CompletionItemKind.Method
             },
             minutes: {
-                doc: new MarkdownString(
-                    `*minutes() returns rules.Integer*  
-                    Get the minutes value of the timestamp.  
-                    *returns* non-null rules.Integer minutes value.`),
+                header: 'minutes() returns rules.Integer',
+                doc: 'Get the minutes value of the timestamp.',
                 kind: CompletionItemKind.Method
             },
             seconds: {
-                doc: new MarkdownString(
-                    `*seconds() returns rules.Integer*  
-                    Get the seconds value of the timestamp.  
-                    *returns* non-null rules.Integer seconds value.`),
+                header: 'seconds() returns rules.Integer',
+                doc: 'Get the seconds value of the timestamp.',
                 kind: CompletionItemKind.Method
             },
             nanos: {
-                doc: new MarkdownString(
-                    `*nanos() returns rules.Integer*  
-                    Get the nanos value of the timestamp.  
-                    *returns* non-null rules.Integer nanos value.`),
+                header: 'nanos() returns rules.Integer',
+                doc: 'Get the nanos value of the timestamp.',
                 kind: CompletionItemKind.Method
             },
             month: {
-                doc: new MarkdownString(
-                    `*month() returns rules.Integer*  
-                    Get the month value of the timestamp.  
-                    *returns* non-null rules.Integer month value.`),
+                header: 'month() returns rules.Integer',
+                doc: 'Get the month value of the timestamp.',
                 kind: CompletionItemKind.Method
             },
             toMillis: {
-                doc: new MarkdownString(
-                    `*toMillis() returns rules.Integer*  
-                    Get the time in milliseconds since the epoch.  
-                    *returns* non-null rules.Integer time in milliseconds.`),
+                header: 'toMillis() returns rules.Integer',
+                doc: 'Get the time in milliseconds since the epoch.',
                 kind: CompletionItemKind.Method
             },
             year: {
-                doc: new MarkdownString(
-                    `*year() returns rules.Integer*  
-                    Get the year value of the timestamp.  
-                    *returns* non-null rules.Integer year value.`),
+                header: 'year() returns rules.Integer',
+                doc: 'Get the year value of the timestamp',
                 kind: CompletionItemKind.Method
             },
             time: {
