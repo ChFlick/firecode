@@ -516,6 +516,7 @@ const combineStrings = (first: string | MarkdownString, second: string | Markdow
     }
 };
 
+// FIXME: duplicates(get!)
 const flatDocs = combine(flatten(typeDoc), flatten(methodDoc, true), flatten(keywordDoc));
 
 export const getDocForToken = (token: string, markedWord: string) => {
