@@ -15,6 +15,8 @@ Works for `.rule` and `.rules` files.
 
 ## Known Issues
 
+* The documentation of the get(/path/) function is currently not correct
+
 This extension is still very fresh and under development, so if you have any issues, please [report them on GitHub](https://github.com/ChFlick/firecode/issues).
 
 ## Development
