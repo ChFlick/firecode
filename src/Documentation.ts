@@ -12,6 +12,7 @@ export interface DocumentationValue {
 
 export type Documentation = { [name: string]: DocumentationValue };
 
+// Mostly extracted from https://firebase.google.com/docs/reference/rules/index-all
 const keywordDoc: Readonly<Documentation> = {
     match: {
         doc: `A \`match\` block declares a \`path\` pattern that is matched against the path for the requested operation (the incoming \`request.path\`).

@@ -1,5 +1,5 @@
 import { CompletionItem, ExtensionContext, languages, Range, Position, CompletionItemKind } from 'vscode';
-import { infos, FirestoreHoverProvider } from './Providers/FirestoreHoverProvider';
+import { FirestoreHoverProvider } from './Providers/FirestoreHoverProvider';
 import { flatDocs } from './Documentation';
 
 export function activate(context: ExtensionContext) {
