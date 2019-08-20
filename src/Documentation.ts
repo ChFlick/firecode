@@ -453,6 +453,8 @@ const typeDoc: Readonly<Documentation> = {
     }
 };
 
+const completeDocs = { ...typeDoc, ...methodDoc, ...keywordDoc };
+
 const flatten = (documentation: Documentation, staticValue: boolean = false): FlatDoc => {
     let flatDoc: FlatDoc = {};
     for (const key of Object.keys(documentation)) {
@@ -514,4 +516,24 @@ const combineStrings = (first: string | MarkdownString, second: string | Markdow
     }
 };
 
-export const flatDocs = combine(flatten(typeDoc), flatten(methodDoc, true), flatten(keywordDoc));
+const flatDocs = combine(flatten(typeDoc), flatten(methodDoc, true), flatten(keywordDoc));
+
+export const getDocForToken = (token: string, markedWord: string) => {
+    if (!/[a-zA-Z0-9-_.]+/.test(token)) {
+        return '';
+    }
+
+    const parts = token.split('.');
+    let current: DocumentationValue = completeDocs[parts[0]];
+
+    for (const val of parts.slice(1)) {
+        if (current.childs) {
+            current = current.childs[val];
+        } else {
+            // token not valid? lucky guess flat doc
+            return flatDocs[markedWord];
+        }
+    }
+
+    return current.doc;
+};

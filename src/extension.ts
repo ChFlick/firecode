@@ -1,6 +1,5 @@
 import { CompletionItem, ExtensionContext, languages, Range, Position, CompletionItemKind } from 'vscode';
 import { FirestoreHoverProvider } from './Providers/FirestoreHoverProvider';
-import { flatDocs } from './Documentation';
 
 export function activate(context: ExtensionContext) {
 	context.subscriptions.push(languages.registerHoverProvider('firestorerules', new FirestoreHoverProvider()));
@@ -19,9 +18,6 @@ export function activate(context: ExtensionContext) {
 			// 	results.push(item);
 			// });
 
-			console.log(flatDocs);
-			
-			
 			return results;
 		}
 	}));
