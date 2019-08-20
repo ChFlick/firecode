@@ -1,3 +1,10 @@
+[![Installs](https://vsmarketplacebadge.apphb.com/installs-short/ChFlick.firecode.svg)]
+[![Visual Studio Marketplace](https://vsmarketplacebadge.apphb.com/version/ChFlick.firecode.svg)]
+[![Build Status](https://travis-ci.org/ChFlick/firecode.svg?branch=master)](https://travis-ci.org/ChFlick/firecode)
+[![codecov](https://codecov.io/gh/ChFlick/firecode/branch/master/graph/badge.svg)](https://codecov.io/gh/ChFlick/firecode)
+[![Maintainability](https://api.codeclimate.com/v1/badges/a06d165d57630120c00d/maintainability)](https://codeclimate.com/github/ChFlick/firecode/maintainability)
+[![Dependencies](https://david-dm.org/ChFlick/firecode.svg)]
+
 # Firestore
 
 Firestore security rule support for Visual Studio Code.
