@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { flatDocs } from '../Documentation';
 
 // Mostly extracted from https://firebase.google.com/docs/reference/rules/index-all
 export const infos: { [name: string]: string | vscode.MarkdownString } = {
@@ -266,6 +267,6 @@ export const infos: { [name: string]: string | vscode.MarkdownString } = {
 export class FirestoreHoverProvider implements vscode.HoverProvider {
     provideHover(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): vscode.ProviderResult<vscode.Hover> {
         const markedWord = document.getText(document.getWordRangeAtPosition(position));
-        return new vscode.Hover(infos[markedWord]);
+        return new vscode.Hover(flatDocs[markedWord]);
     }
 }

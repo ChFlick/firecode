@@ -36,6 +36,12 @@ const keywordDoc: Readonly<Documentation> = {
     read: {
         doc: 'Any type of read request. Equals `get` and `list`',
     },
+    get: {
+        doc: 'Read requests for single documents or files.',
+    },
+    list: {
+        doc: 'Read requests for queries and collections.',
+    },
     write: {
         doc: 'Any type of write request. Equals `create`, `update`, and `delete`',
     },
@@ -421,6 +427,20 @@ const typeDoc: Readonly<Documentation> = {
                     *returns* non-null rules.Integer minutes value.`),
                 kind: CompletionItemKind.Method
             },
+            seconds: {
+                doc: new MarkdownString(
+                    `*seconds() returns rules.Integer*  
+                    Get the seconds value of the timestamp.  
+                    *returns* non-null rules.Integer seconds value.`),
+                kind: CompletionItemKind.Method
+            },
+            nanos: {
+                doc: new MarkdownString(
+                    `*nanos() returns rules.Integer*  
+                    Get the nanos value of the timestamp.  
+                    *returns* non-null rules.Integer nanos value.`),
+                kind: CompletionItemKind.Method
+            },
             month: {
                 doc: new MarkdownString(
                     `*month() returns rules.Integer*  
@@ -442,6 +462,11 @@ const typeDoc: Readonly<Documentation> = {
                     *returns* non-null rules.Integer year value.`),
                 kind: CompletionItemKind.Method
             },
+            time: {
+                header: 'time() returns rules.Duration',
+                doc: 'Get the duration value from the time portion of the timestamp',
+                kind: CompletionItemKind.Method
+            }
         }
     }
 };
@@ -449,16 +474,53 @@ const typeDoc: Readonly<Documentation> = {
 const flatten = (documentation: Documentation): FlatDoc => {
     let flatDoc: FlatDoc = {};
     for (const key of Object.keys(documentation)) {
-        flatDoc[key] = documentation[key].doc;
+        const actualKey = documentation[key].name || key;
+
+        // With duplicate keys append content
+        if (flatDoc[actualKey]) {
+            flatDoc[actualKey] = combineStrings(flatDoc[actualKey], documentation[key].doc);
+        } else {
+            flatDoc[actualKey] = documentation[key].doc;
+        }
 
         const childs = documentation[key].childs;
         if (childs) {
             const flattenedChilds = flatten(childs);
-            flatDoc = { ...flatDoc, ...flattenedChilds };
+            flatDoc = combine(flatDoc, flattenedChilds);
         }
     }
 
     return flatDoc;
 };
 
-export const flatDocs = { ...flatten(typeDoc), ...flatten(methodDoc), ...flatten(keywordDoc) };
+const combine = (...flatDocs: FlatDoc[]) => {
+    const newFlatDoc: FlatDoc = {};
+    flatDocs.forEach(flatDoc => {
+        for (const key of Object.keys(flatDoc)) {
+            if (newFlatDoc[key]) {
+                newFlatDoc[key] = combineStrings(newFlatDoc[key], flatDoc[key]);
+            } else {
+                newFlatDoc[key] = flatDoc[key];
+            }
+        }
+    });
+    return newFlatDoc;
+};
+
+const combineStrings = (first: string | MarkdownString, second: string | MarkdownString): MarkdownString => {
+    if (typeof first === 'string') {
+        if (typeof second === 'string') {
+            return new MarkdownString(`${first}\n\n${second}`);
+        } else {
+            return new MarkdownString(`${first}\n\n`).appendMarkdown(second.value);
+        }
+    } else {
+        if (typeof second === 'string') {
+            return new MarkdownString(`${first.value}\n\n`).appendMarkdown(second);
+        } else {
+            return new MarkdownString(`${first.value}\n\n`).appendMarkdown(second.value);
+        }
+    }
+};
+
+export const flatDocs = combine(flatten(typeDoc), flatten(methodDoc), flatten(keywordDoc));
