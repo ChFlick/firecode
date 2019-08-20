@@ -1,9 +1,14 @@
-import * as vscode from 'vscode';
+import { TextDocument, Position, HoverProvider, Hover, ProviderResult, CancellationToken } from 'vscode';
 import { flatDocs } from '../Documentation';
+import { getWholeToken } from '../Utils';
 
-export class FirestoreHoverProvider implements vscode.HoverProvider {
-    provideHover(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): vscode.ProviderResult<vscode.Hover> {
+export class FirestoreHoverProvider implements HoverProvider {
+    provideHover(document: TextDocument, position: Position, token: CancellationToken): ProviderResult<Hover> {
         const markedWord = document.getText(document.getWordRangeAtPosition(position));
-        return new vscode.Hover(flatDocs[markedWord]);
+
+        console.log(getWholeToken(document, position));
+
+        return new Hover(flatDocs[markedWord]);
     }
+
 }
