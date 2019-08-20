@@ -4,11 +4,117 @@ type FlatDoc = { [name: string]: string | MarkdownString };
 
 export interface Documentation {
     [name: string]: {
+        name?: string,
+        header?: string,
         doc: string | MarkdownString,
         kind?: CompletionItemKind,
         childs?: Documentation
     };
 }
+
+const keywordDoc: Readonly<Documentation> = {
+    match: {
+        doc: `A \`match\` block declares a \`path\` pattern that is matched against the path for the requested operation (the incoming \`request.path\`).
+        The body of the \`match\` must have one or more nested \`match\` blocks, \`allow\` statements, or \`function\` declarations.
+        The path in nested \`match\` blocks is relative to the path in the parent \`match\` block.`
+    },
+    allow: {
+        doc: new MarkdownString(
+            `allow a request if the following condition evaluates to \`true\`` + '\n\n' +
+            `The following methods are possible:  
+            * read  
+                * get  
+                * list  
+            * write  
+                * create  
+                * update  
+                * delete`),
+    },
+    service: {
+        doc: 'contains one or more`match` blocks with `allow` statements that provide conditions granting access to requests',
+    },
+    read: {
+        doc: 'Any type of read request.Equals`get` and`list`',
+    },
+    write: {
+        doc: 'Any type of write request.Equals`create`, `update`, and`delete`',
+    },
+    create: {
+        doc: 'Write new documents or files',
+    },
+    update: {
+        doc: 'Write to existing documents or files',
+    },
+    delete: {
+        doc: 'Delete data',
+    }
+};
+
+const methodDoc: Readonly<Documentation> = {
+    time: {
+        header: 'time(hours, mins, secs, nanos) returns rules.Duration',
+        doc: 'Create a duration from hours, minutes, seconds, and nanoseconds.'
+    },
+    durationValue: {
+        name: 'value',
+        header: 'value(magnitude, unit) returns rules.Duration',
+        doc: 'Create a duration from a numeric magnitude and string unit.'
+    },
+    latlngValue: {
+        name: 'value',
+        header: 'value(lat, lng) returns rules.LatLng',
+        doc: 'Create a LatLng from floating point coordinates.'
+    },
+    timestampValue: {
+        name: 'value',
+        header: 'value(epochMillis) returns rules.Timestamp',
+        doc: 'Make a timestamp from an epoch time in milliseconds.'
+    },
+    exists: {
+        header: 'exists(path) returns rules.Boolean',
+        doc: 'Check if a document exists.'
+    },
+    existsAfter: {
+        header: 'existsAfter(path) returns rules.Boolean',
+        doc: 'Check if a document exists, assuming the current request succeeds. Equivalent to getAfter(path) != null.'
+    },
+    get: {
+        header: 'get(path) returns rules.firestore.Resource',
+        doc: 'Get the contents of a firestore document.'
+    },
+    getAfter: {
+        header: 'getAfter(path) returns rules.firestore.Resource',
+        doc: 'Get the projected contents of a document. The document is returned as if the current request had succeeded. Useful for validating documents that are part of a batched write or transaction.'
+    },
+    abs: {
+        header: 'abs(num) returns number',
+        doc: 'Absolute value of a numeric value.'
+    },
+    ceil: {
+        header: 'ceil(num) returns rules.Integer',
+        doc: 'Ceiling of the numeric value.'
+    },
+    floor: {
+        header: 'floor(num) returns rules.Integer',
+        doc: 'Ceiling of the numeric value.'
+    },
+    isInfinite: {
+        header: 'isInfinite(num) returns rules.Boolean',
+        doc: 'Test whether the value is ±∞.'
+    },
+    isNaN: {
+        header: 'isNaN(num) returns rules.Boolean',
+        doc: 'Test whether the value is NaN.'
+    },
+    round: {
+        header: 'round(num) returns rules.Integer',
+        doc: 'Round the input value to the nearest int.'
+    },
+    date: {
+        header: 'date(year, month, day) returns rules.Timestamp',
+        doc: 'Make a timestamp from a year, month, and day.'
+    }
+};
 
 const typeDoc: Readonly<Documentation> = {
     duration: {
