@@ -1,16 +1,16 @@
 import { MarkdownString, CompletionItemKind } from 'vscode';
 
-type FlatDoc = { [name: string]: string | MarkdownString };
+export type FlatDoc = { [name: string]: string | MarkdownString };
 
-export interface Documentation {
-    [name: string]: {
-        name?: string,
-        header?: string,
-        doc: string | MarkdownString,
-        kind?: CompletionItemKind,
-        childs?: Documentation
-    };
+export interface DocumentationValue {
+    name?: string;
+    header?: string;
+    doc: string | MarkdownString;
+    kind?: CompletionItemKind;
+    childs?: Documentation;
 }
+
+export type Documentation = { [name: string]: DocumentationValue };
 
 const keywordDoc: Readonly<Documentation> = {
     match: {
@@ -432,16 +432,16 @@ const typeDoc: Readonly<Documentation> = {
     }
 };
 
-const flatten = (documentation: Documentation): FlatDoc => {
+const flatten = (documentation: Documentation, staticValue: boolean = false): FlatDoc => {
     let flatDoc: FlatDoc = {};
     for (const key of Object.keys(documentation)) {
         const actualKey = documentation[key].name || key;
 
         // With duplicate keys append content
         if (flatDoc[actualKey]) {
-            flatDoc[actualKey] = combineStrings(flatDoc[actualKey], documentation[key].doc);
+            flatDoc[actualKey] = combineStrings(flatDoc[actualKey], createDocString(documentation[key]));
         } else {
-            flatDoc[actualKey] = documentation[key].doc;
+            flatDoc[actualKey] = createDocString(documentation[key]);
         }
 
         const childs = documentation[key].childs;
@@ -452,6 +452,17 @@ const flatten = (documentation: Documentation): FlatDoc => {
     }
 
     return flatDoc;
+};
+
+const createDocString = (documentation: DocumentationValue, staticValue: boolean = false): string | MarkdownString => {
+    if (!documentation.header) {
+        return documentation.doc;
+    }
+
+    return new MarkdownString(staticValue ? '**static**' : '')
+        .appendMarkdown('*' + documentation.header + '*')
+        .appendMarkdown('  \n')
+        .appendMarkdown(typeof documentation.doc === 'string' ? documentation.doc : documentation.doc.value);
 };
 
 const combine = (...flatDocs: FlatDoc[]) => {
@@ -484,4 +495,4 @@ const combineStrings = (first: string | MarkdownString, second: string | Markdow
     }
 };
 
-export const flatDocs = combine(flatten(typeDoc), flatten(methodDoc), flatten(keywordDoc));
+export const flatDocs = combine(flatten(typeDoc), flatten(methodDoc, true), flatten(keywordDoc));
