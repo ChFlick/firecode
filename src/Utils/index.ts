@@ -17,3 +17,21 @@ export const getWholeToken = (document: TextDocument, position: Position): strin
 
     return token;
 };
+
+export const getTokenUntil = (document: TextDocument, position: Position): string => {
+    const wordRange = document.getWordRangeAtPosition(position);
+    if (!wordRange) {
+        return '';
+    }
+
+    let token = document.getText(wordRange);
+    let tmpPosition = wordRange.start;
+
+    //find start position
+    while (tmpPosition.character > 0 && document.getText(new Range(tmpPosition, tmpPosition.translate(0, -1))).match(/[a-zA-Z0-9\.]/)) {
+        token = document.getText(new Range(tmpPosition, tmpPosition.translate(0, -1))) + token;
+        tmpPosition = tmpPosition.translate(0, -1);
+    }
+
+    return token;
+};
