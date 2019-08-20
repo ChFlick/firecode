@@ -3,7 +3,6 @@ import { MarkdownString, CompletionItemKind } from 'vscode';
 export type FlatDoc = { [name: string]: string | MarkdownString };
 
 export interface DocumentationValue {
-    name?: string;
     header?: string;
     doc: string | MarkdownString;
     kind?: CompletionItemKind;
@@ -58,24 +57,31 @@ const keywordDoc: Readonly<Documentation> = {
 };
 
 const methodDoc: Readonly<Documentation> = {
-    time: {
-        header: 'time(hours, mins, secs, nanos) returns rules.Duration',
-        doc: 'Create a duration from hours, minutes, seconds, and nanoseconds.'
+    duration: {
+        doc: 'Globally available duration functions. These functions are accessed using the `duration.` prefix.',
+        childs: {
+            abs: {
+                header: 'abs(duration) returns rules.Duration',
+                doc: 'Absolute value of a duration.'
+            },
+            time: {
+                header: 'time(hours, mins, secs, nanos) returns rules.Duration',
+                doc: 'Create a duration from hours, minutes, seconds, and nanoseconds.'
+            },
+            value: {
+                header: 'value(magnitude, unit) returns rules.Duration',
+                doc: 'Create a duration from a numeric magnitude and string unit.'
+            },
+        }
     },
-    durationValue: {
-        name: 'value',
-        header: 'value(magnitude, unit) returns rules.Duration',
-        doc: 'Create a duration from a numeric magnitude and string unit.'
-    },
-    latlngValue: {
-        name: 'value',
-        header: 'value(lat, lng) returns rules.LatLng',
-        doc: 'Create a LatLng from floating point coordinates.'
-    },
-    timestampValue: {
-        name: 'value',
-        header: 'value(epochMillis) returns rules.Timestamp',
-        doc: 'Make a timestamp from an epoch time in milliseconds.'
+    latlng: {
+        doc: 'Globally available latitude-longitude functions. These functions are accessed using the `latlng.` prefix.',
+        childs: {
+            value: {
+                header: 'value(lat, lng) returns rules.LatLng',
+                doc: 'Create a LatLng from floating point coordinates.'
+            }
+        }
     },
     exists: {
         header: 'exists(path) returns rules.Boolean',
@@ -93,33 +99,47 @@ const methodDoc: Readonly<Documentation> = {
         header: 'getAfter(path) returns rules.firestore.Resource',
         doc: 'Get the projected contents of a document. The document is returned as if the current request had succeeded. Useful for validating documents that are part of a batched write or transaction.'
     },
-    abs: {
-        header: 'abs(num) returns number',
-        doc: 'Absolute value of a numeric value.'
+    math: {
+        doc: 'Globally available mathematical functions. These functions are accessed using the `math.` prefix and operate on numerical values.',
+        childs: {
+            abs: {
+                header: 'abs(num) returns number',
+                doc: 'Absolute value of a numeric value.'
+            },
+            ceil: {
+                header: 'ceil(num) returns rules.Integer',
+                doc: 'Ceiling of the numeric value.'
+            },
+            floor: {
+                header: 'floor(num) returns rules.Integer',
+                doc: 'Ceiling of the numeric value.'
+            },
+            isInfinite: {
+                header: 'isInfinite(num) returns rules.Boolean',
+                doc: 'Test whether the value is ±∞.'
+            },
+            isNaN: {
+                header: 'isNaN(num) returns rules.Boolean',
+                doc: 'Test whether the value is NaN.'
+            },
+            round: {
+                header: 'round(num) returns rules.Integer',
+                doc: 'Round the input value to the nearest int.'
+            }
+        }
     },
-    ceil: {
-        header: 'ceil(num) returns rules.Integer',
-        doc: 'Ceiling of the numeric value.'
-    },
-    floor: {
-        header: 'floor(num) returns rules.Integer',
-        doc: 'Ceiling of the numeric value.'
-    },
-    isInfinite: {
-        header: 'isInfinite(num) returns rules.Boolean',
-        doc: 'Test whether the value is ±∞.'
-    },
-    isNaN: {
-        header: 'isNaN(num) returns rules.Boolean',
-        doc: 'Test whether the value is NaN.'
-    },
-    round: {
-        header: 'round(num) returns rules.Integer',
-        doc: 'Round the input value to the nearest int.'
-    },
-    date: {
-        header: 'date(year, month, day) returns rules.Timestamp',
-        doc: 'Make a timestamp from a year, month, and day.'
+    timestamp: {
+        doc: 'Globally available timestamp functions. These functions are accessed using the `timestamp.` prefix.',
+        childs: {
+            date: {
+                header: 'date(year, month, day) returns rules.Timestamp',
+                doc: 'Make a timestamp from a year, month, and day.'
+            },
+            value: {
+                header: 'value(epochMillis) returns rules.Timestamp',
+                doc: 'Make a timestamp from an epoch time in milliseconds.'
+            }
+        }
     }
 };
 
@@ -436,18 +456,16 @@ const typeDoc: Readonly<Documentation> = {
 const flatten = (documentation: Documentation, staticValue: boolean = false): FlatDoc => {
     let flatDoc: FlatDoc = {};
     for (const key of Object.keys(documentation)) {
-        const actualKey = documentation[key].name || key;
-
         // With duplicate keys append content
-        if (flatDoc[actualKey]) {
-            flatDoc[actualKey] = combineStrings(flatDoc[actualKey], createDocString(documentation[key]));
+        if (flatDoc[key]) {
+            flatDoc[key] = combineStrings(flatDoc[key], createDocString(documentation[key], staticValue));
         } else {
-            flatDoc[actualKey] = createDocString(documentation[key]);
+            flatDoc[key] = createDocString(documentation[key], staticValue);
         }
 
         const childs = documentation[key].childs;
         if (childs) {
-            const flattenedChilds = flatten(childs);
+            const flattenedChilds = flatten(childs, staticValue);
             flatDoc = combine(flatDoc, flattenedChilds);
         }
     }
