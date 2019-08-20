@@ -526,6 +526,10 @@ export const getDocForToken = (token: string, markedWord: string) => {
     const parts = token.split('.');
     let current: DocumentationValue = completeDocs[parts[0]];
 
+    if (!current) {
+        return flatDocs[markedWord];
+    }
+
     for (const val of parts.slice(1)) {
         if (current.childs) {
             current = current.childs[val];
