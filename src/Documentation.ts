@@ -31,13 +31,13 @@ const keywordDoc: Readonly<Documentation> = {
                 * delete`),
     },
     service: {
-        doc: 'contains one or more`match` blocks with `allow` statements that provide conditions granting access to requests',
+        doc: 'contains one or more `match` blocks with `allow` statements that provide conditions granting access to requests',
     },
     read: {
-        doc: 'Any type of read request.Equals`get` and`list`',
+        doc: 'Any type of read request. Equals `get` and `list`',
     },
     write: {
-        doc: 'Any type of write request.Equals`create`, `update`, and`delete`',
+        doc: 'Any type of write request. Equals `create`, `update`, and `delete`',
     },
     create: {
         doc: 'Write new documents or files',
@@ -461,4 +461,4 @@ const flatten = (documentation: Documentation): FlatDoc => {
     return flatDoc;
 };
 
-export const flatDocs = flatten(typeDoc);
+export const flatDocs = { ...flatten(typeDoc), ...flatten(methodDoc), ...flatten(keywordDoc) };
