@@ -1,7 +1,6 @@
 [![Installs](https://vsmarketplacebadge.apphb.com/installs-short/ChFlick.firecode.svg)](https://marketplace.visualstudio.com/items?itemName=ChFlick.firecode)
 [![Visual Studio Marketplace](https://vsmarketplacebadge.apphb.com/version/ChFlick.firecode.svg)](https://marketplace.visualstudio.com/items?itemName=ChFlick.firecode)
 [![Build Status](https://travis-ci.org/ChFlick/firecode.svg?branch=master)](https://travis-ci.org/ChFlick/firecode)
-[![codecov](https://codecov.io/gh/ChFlick/firecode/branch/master/graph/badge.svg)](https://codecov.io/gh/ChFlick/firecode)
 [![Maintainability](https://api.codeclimate.com/v1/badges/a06d165d57630120c00d/maintainability)](https://codeclimate.com/github/ChFlick/firecode/maintainability)
 [![Dependencies](https://david-dm.org/ChFlick/firecode.svg)](https://david-dm.org/ChFlick/firecode)
 [![devDependencies Status](https://david-dm.org/ChFlick/firecode/dev-status.svg)](https://david-dm.org/ChFlick/firecode?type=dev)
