@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import { before, describe } from 'mocha';
 
 import * as vscode from 'vscode';
-import { getWholeToken, getTokenUntil } from '../../../Utils';
+import { getWholeToken, getTokenUntil } from '../../../utils';
 
 describe('utils test', () => {
 
