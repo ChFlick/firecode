@@ -6,7 +6,12 @@ export class FirestoreCompletionProvider implements CompletionItemProvider {
         const results: CompletionItem[] = [];
 
         try {
-            tokenize(document).then(v => console.log(v[position.line]));
+            tokenize(document).then(tokenizedDoc => {
+                const lineTokens = tokenizedDoc[position.line];
+                const currentToken = lineTokens.filter(token => token.range.contains(position));
+
+                console.log(currentToken);
+            });
         } catch (error) {
             console.log(error);
         }
