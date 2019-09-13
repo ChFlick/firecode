@@ -16,9 +16,15 @@ export class FirestoreCompletionProvider implements CompletionItemProvider {
                 return [];
             }
 
-            const partial = document.getText(currentToken.range);
+            let partial = document.getText(currentToken.range);
+            partial = partial.trim().substring(0, partial.includes(' ') ? partial.indexOf(' ') : partial.length);
+            
             results = getPotentialDocForPartial(partial)
-                .map(v => new CompletionItem(typeof v === 'string' ? v : v.value, CompletionItemKind.Class));
+                .map(v => {
+                    const item = new CompletionItem(typeof v[0] === 'string' ? v[0] : v[0].value, CompletionItemKind.Class);
+                    item.documentation = v[1];
+                    return item;
+                });
         } catch (error) {
             console.log(error);
         }
@@ -37,4 +43,4 @@ export class FirestoreCompletionProvider implements CompletionItemProvider {
 
         return results;
     }
-}
+}  

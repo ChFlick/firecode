@@ -546,7 +546,7 @@ export const getDocForToken = (token: string, markedWord: string): string | Mark
 export const getPotentialDocForPartial = (partial: string) => {
     const potentialDocs = Object.keys(flatDocs)
         .filter(value => value.startsWith(partial))
-        .map(value => flatDocs[value]);
+        .map(value => [value, flatDocs[value]]);
 
     return potentialDocs;
 };
