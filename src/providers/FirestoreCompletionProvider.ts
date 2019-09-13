@@ -1,24 +1,24 @@
-import { CompletionItem, CompletionItemProvider, CompletionList, Position, ProviderResult, TextDocument } from 'vscode';
+import { CompletionItem, CompletionItemProvider, CompletionList, Position, ProviderResult, TextDocument, CompletionItemKind } from 'vscode';
 import { tokenize } from '../utils/textmate/textmate';
 import { getPotentialDocForPartial } from '../Documentation';
 
 export class FirestoreCompletionProvider implements CompletionItemProvider {
-    provideCompletionItems(document: TextDocument, position: Position): ProviderResult<CompletionItem[] | CompletionList> {
-        const results: CompletionItem[] = [];
+    async provideCompletionItems(document: TextDocument, position: Position): Promise<CompletionItem[] | CompletionList> {
+        let results: CompletionItem[] = [];
 
         try {
-            tokenize(document).then(tokenizedDoc => {
-                const lineTokens = tokenizedDoc[position.line];
-                const currentToken = lineTokens.find(token => token.range.contains(position));
+            const tokenizedDoc = await tokenize(document);
 
-                if(!currentToken) {
-                    return;
-                }
+            const lineTokens = tokenizedDoc[position.line];
+            const currentToken = lineTokens.find(token => token.range.contains(position));
 
-                const partial = document.getText(currentToken.range);
+            if (!currentToken) {
+                return [];
+            }
 
-                console.log(getPotentialDocForPartial(partial));
-            });
+            const partial = document.getText(currentToken.range);
+            results = getPotentialDocForPartial(partial)
+                .map(v => new CompletionItem(typeof v === 'string' ? v : v.value, CompletionItemKind.Class));
         } catch (error) {
             console.log(error);
         }
