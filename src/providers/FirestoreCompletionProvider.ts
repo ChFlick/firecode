@@ -1,5 +1,6 @@
 import { CompletionItem, CompletionItemProvider, CompletionList, Position, ProviderResult, TextDocument } from 'vscode';
 import { tokenize } from '../utils/textmate/textmate';
+import { getPotentialDocForPartial } from '../Documentation';
 
 export class FirestoreCompletionProvider implements CompletionItemProvider {
     provideCompletionItems(document: TextDocument, position: Position): ProviderResult<CompletionItem[] | CompletionList> {
@@ -8,9 +9,15 @@ export class FirestoreCompletionProvider implements CompletionItemProvider {
         try {
             tokenize(document).then(tokenizedDoc => {
                 const lineTokens = tokenizedDoc[position.line];
-                const currentToken = lineTokens.filter(token => token.range.contains(position));
+                const currentToken = lineTokens.find(token => token.range.contains(position));
 
-                console.log(currentToken);
+                if(!currentToken) {
+                    return;
+                }
+
+                const partial = document.getText(currentToken.range);
+
+                console.log(getPotentialDocForPartial(partial));
             });
         } catch (error) {
             console.log(error);

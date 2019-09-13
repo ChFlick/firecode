@@ -519,7 +519,7 @@ const combineStrings = (first: string | MarkdownString, second: string | Markdow
 // FIXME: duplicates(get!)
 const flatDocs = combine(flatten(typeDoc), flatten(methodDoc, true), flatten(keywordDoc));
 
-export const getDocForToken = (token: string, markedWord: string) => {
+export const getDocForToken = (token: string, markedWord: string): string | MarkdownString => {
     if (!/[a-zA-Z0-9-_.]+/.test(token)) {
         return '';
     }
@@ -541,4 +541,12 @@ export const getDocForToken = (token: string, markedWord: string) => {
     }
 
     return current.doc;
+};
+
+export const getPotentialDocForPartial = (partial: string) => {
+    const potentialDocs = Object.keys(flatDocs)
+        .filter(value => value.startsWith(partial))
+        .map(value => flatDocs[value]);
+
+    return potentialDocs;
 };
