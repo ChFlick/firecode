@@ -20,9 +20,10 @@ export class FirestoreCompletionProvider implements CompletionItemProvider {
             partial = partial.trim().substring(0, partial.includes(' ') ? partial.indexOf(' ') : partial.length);
             
             results = getPotentialDocForPartial(partial)
-                .map(v => {
-                    const item = new CompletionItem(typeof v[0] === 'string' ? v[0] : v[0].value, CompletionItemKind.Class);
-                    item.documentation = v[1];
+                .map(doc => {
+                    const docString = doc[0];
+                    const item = new CompletionItem(typeof docString === 'string' ? docString : docString.value, CompletionItemKind.Class);
+                    item.documentation = doc[1];
                     return item;
                 });
         } catch (error) {
