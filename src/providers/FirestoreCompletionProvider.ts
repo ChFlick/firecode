@@ -21,8 +21,8 @@ export class FirestoreCompletionProvider implements CompletionItemProvider {
             
             results = getPotentialDocForPartial(partial)
                 .map(doc => {
-                    const docString = doc[0];
-                    const item = new CompletionItem(typeof docString === 'string' ? docString : docString.value, CompletionItemKind.Class);
+                    const docName = doc[0];
+                    const item = new CompletionItem(typeof docName === 'string' ? docName : docName.value, CompletionItemKind.Class);
                     item.documentation = doc[1];
                     return item;
                 });
