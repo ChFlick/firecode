@@ -3,7 +3,7 @@ import { before, describe } from 'mocha';
 
 import * as vscode from 'vscode';
 import { getWholeToken, getTokenUntil } from '../../../utils';
-import { getDocForToken } from '../../../Documentation';
+import { getDocForToken, getPotentialDocForPartial } from '../../../Documentation';
 
 describe('utils test', () => {
 
@@ -121,6 +121,34 @@ describe('utils test', () => {
             const markedWord = 'path';
 
             assert.notStrictEqual(getDocForToken(tokenA, markedWord), getDocForToken(tokenB, markedWord));
+        });
+
+    });
+
+    describe('getPotentialDocForPartial', () => {
+
+        test('should return a valid documentation for a valid partial', async () => {
+            const partial = 'pat';
+
+            const potentialDocs = getPotentialDocForPartial(partial);
+
+            if(potentialDocs.length > 0) {
+                assert.ok(potentialDocs);
+            } else {
+                assert.fail('Expected potential docs to be found');
+            }
+        });
+
+        test('should return no valid documentation for a invalid partial', async () => {
+            const partial = 'asdf';
+
+            const potentialDocs = getPotentialDocForPartial(partial);
+
+            if(potentialDocs.length > 0) {
+                assert.fail(potentialDocs, [], 'Expected no potential docs to be found');
+            } else {
+                assert.ok(potentialDocs);
+            }
         });
 
     });
