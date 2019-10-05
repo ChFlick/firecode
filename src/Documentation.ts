@@ -540,7 +540,7 @@ export const getDocForToken = (token: string, markedWord: string): string | Mark
         }
     }
 
-    return current.doc;
+    return current ? current.doc : '';
 };
 
 export const getPotentialDocForPartial = (partial: string) => {
