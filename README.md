@@ -13,12 +13,14 @@ Works for `.rule` and `.rules` files.
 
 ## Features
 
-* Syntax Highlighting
-* Mouseover Information
-
+### Syntax Highlighting
 ![Syntax Highlighting](./resources/syntax-highlighting.png)
 
+### Mouseover Information
 ![Mouseover Information](./resources/mouseover-info.gif)
+
+### Autocomplete Suggestions
+![Autocompletion](./resources/autocomplete.gif)
 
 ## Known Issues
 
