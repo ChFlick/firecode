@@ -61,33 +61,32 @@ export function rangeDeltaNewRange(delta: RangeDelta): vscode.Range {
   } return new vscode.Range(delta.start, new vscode.Position(delta.end.line + delta.linesDelta, x));
 }
 
-function positionRangeDeltaTranslate(pos: vscode.Position, delta: RangeDelta): vscode.Position {
+function positionRangeDeltaTranslateStart(pos: vscode.Position, delta: RangeDelta): vscode.Position {
   if (pos.isBefore(delta.end)) {
     return pos;
-  } else if (delta.end.line === pos.line) {
-    let x = pos.character + delta.endCharactersDelta;
-    if (delta.linesDelta > 0) {
-      x = x - delta.end.character;
-    } else if (delta.start.line === delta.end.line + delta.linesDelta && delta.linesDelta < 0) {
-      x = x + delta.start.character;
-    } return new vscode.Position(pos.line + delta.linesDelta, x);
   }
-  else // if(pos.line > delta.end.line)
-  {
-    return new vscode.Position(pos.line + delta.linesDelta, pos.character);
-  }
+
+  return positionRangeDeltaTranslate(pos, delta);
 }
 
 function positionRangeDeltaTranslateEnd(pos: vscode.Position, delta: RangeDelta): vscode.Position {
   if (pos.isBeforeOrEqual(delta.end)) {
     return pos;
-  } else if (delta.end.line === pos.line) {
+  }
+
+  return positionRangeDeltaTranslate(pos, delta);
+}
+
+function positionRangeDeltaTranslate(pos: vscode.Position, delta: RangeDelta): vscode.Position {
+  if (delta.end.line === pos.line) {
     let x = pos.character + delta.endCharactersDelta;
     if (delta.linesDelta > 0) {
       x = x - delta.end.character;
     } else if (delta.start.line === delta.end.line + delta.linesDelta && delta.linesDelta < 0) {
       x = x + delta.start.character;
-    } return new vscode.Position(pos.line + delta.linesDelta, x);
+    }
+
+    return new vscode.Position(pos.line + delta.linesDelta, x);
   }
   else // if(pos.line > delta.end.line)
   {
@@ -97,7 +96,7 @@ function positionRangeDeltaTranslateEnd(pos: vscode.Position, delta: RangeDelta)
 
 export function rangeTranslate(range: vscode.Range, delta: RangeDelta) {
   return new vscode.Range(
-    positionRangeDeltaTranslate(range.start, delta),
+    positionRangeDeltaTranslateStart(range.start, delta),
     positionRangeDeltaTranslateEnd(range.end, delta)
   );
 }
