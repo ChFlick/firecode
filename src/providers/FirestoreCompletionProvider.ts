@@ -1,6 +1,6 @@
-import { CompletionItem, CompletionItemProvider, CompletionList, Position, ProviderResult, TextDocument, CompletionItemKind } from 'vscode';
-import { tokenize } from '../utils/textmate/textmate';
+import { CompletionItem, CompletionItemKind, CompletionItemProvider, CompletionList, Position, TextDocument } from 'vscode';
 import { getPotentialDocForPartial } from '../Documentation';
+import { tokenize } from '../utils/textmate/textmate';
 
 export class FirestoreCompletionProvider implements CompletionItemProvider {
     async provideCompletionItems(document: TextDocument, position: Position): Promise<CompletionItem[] | CompletionList> {
@@ -18,7 +18,7 @@ export class FirestoreCompletionProvider implements CompletionItemProvider {
 
             let partial = document.getText(currentToken.range);
             partial = partial.trim().substring(0, partial.includes(' ') ? partial.indexOf(' ') : partial.length);
-            
+
             results = getPotentialDocForPartial(partial)
                 .map(doc => {
                     const docName = doc[0];
@@ -29,18 +29,6 @@ export class FirestoreCompletionProvider implements CompletionItemProvider {
         } catch (error) {
             console.log(error);
         }
-
-        // let lineUntilPos = doc.getText(new Range(new Position(pos.line, 0), pos));
-
-        // console.log(lineUntilPos, doc.getText(doc.getWordRangeAtPosition(pos)));
-
-        // Object.keys(infos).forEach(key => {
-        // 	let item = new CompletionItem(key, CompletionItemKind.Keyword);
-        // 	item.documentation = infos[key];
-        // 	item.detail ='testdetial';
-        // 	item.filterText = 'aaaa';
-        // 	results.push(item);
-        // });
 
         return results;
     }
