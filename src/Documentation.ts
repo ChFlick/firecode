@@ -63,8 +63,10 @@ const combineStrings = (first: string | MarkdownString, second: string | Markdow
 // FIXME: duplicates(get!)
 const flatDocs = combine(flatten(typeDoc), flatten(methodDoc, true), flatten(keywordDoc));
 
+const isInvalidToken = (token: string) => !/[a-zA-Z0-9-_.]+/.test(token); 
+
 export const getDocForToken = (token: string, markedWord: string): string | MarkdownString => {
-    if (!/[a-zA-Z0-9-_.]+/.test(token)) {
+    if (isInvalidToken(token)) {
         return '';
     }
 
