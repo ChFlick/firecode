@@ -1,4 +1,4 @@
-import { MarkdownString } from 'vscode';
+import { MarkdownString, MarkedString } from 'vscode';
 import { typeDoc } from './documentation/typeDocumentation';
 import { methodDoc } from './documentation/methodDocumentation';
 import { Documentation, FlatDoc, DocumentationValue } from './documentation/types';
@@ -51,20 +51,13 @@ const combine = (...flatDocs: FlatDoc[]) => {
     return newFlatDoc;
 };
 
+const mdStringToString = (val: string | MarkedString) => typeof val === 'string' ? val : val.value;
+
 const combineStrings = (first: string | MarkdownString, second: string | MarkdownString): MarkdownString => {
-    if (typeof first === 'string') {
-        if (typeof second === 'string') {
-            return new MarkdownString(`${first}\n\n${second}`);
-        } else {
-            return new MarkdownString(`${first}\n\n`).appendMarkdown(second.value);
-        }
-    } else {
-        if (typeof second === 'string') {
-            return new MarkdownString(`${first.value}\n\n`).appendMarkdown(second);
-        } else {
-            return new MarkdownString(`${first.value}\n\n`).appendMarkdown(second.value);
-        }
-    }
+    const firstString = mdStringToString(first);
+    const secondString = mdStringToString(second);
+
+    return new MarkdownString(`${firstString}\n\n${secondString}`);
 };
 
 // FIXME: duplicates(get!)
