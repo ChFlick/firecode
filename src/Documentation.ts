@@ -105,6 +105,8 @@ export const getPotentialDocForPartialScoped = (partial: string, scope: string |
             .filter(value => (completeDocs[value].scopes || [scope]).includes(scope))
             .map(value => [value, flatDocs[value]]);
 
+        // TODO: if partial contains a dot (request.asdf) => serve subDocs
+
         return potentialDocs;
     }
 
