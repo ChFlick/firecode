@@ -1,15 +1,16 @@
 import { CompletionItemKind, MarkdownString } from 'vscode';
 
-export type Scope = 'source.firebase' |
-    'comment.line' |
-    'meta.root.fs' |
-    'meta.matcher.fs' |
-    'string.unquoted.fs' |
-    'meta.function.fs' |
-    'meta.function.expression.fs' |
-    'meta.allow.fs' |
-    'meta.functioncall.fs' |
-    'string.quoted.firestorerules';
+export const scopes = ['source.firebase',
+    'comment.line',
+    'meta.root.fs',
+    'meta.matcher.fs',
+    'string.unquoted.fs',
+    'meta.function.fs',
+    'meta.function.expression.fs',
+    'meta.allow.fs',
+    'meta.functioncall.fs',
+    'string.quoted.firestorerules'] as const;
+export type Scope = typeof scopes[number];
 
 export type FlatDoc = { [name: string]: string | MarkdownString };
 
