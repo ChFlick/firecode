@@ -19,6 +19,7 @@ export const keywordDoc: Readonly<Documentation> = {
                 * create  
                 * update  
                 * delete`),
+        scopes: ['meta.matcher.fs'],
     },
     service: {
         doc: 'contains one or more `match` blocks with `allow` statements that provide conditions granting access to requests',

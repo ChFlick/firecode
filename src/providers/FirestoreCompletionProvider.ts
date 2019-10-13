@@ -16,8 +16,11 @@ export class FirestoreCompletionProvider implements CompletionItemProvider {
                 return [];
             }
 
-            let partial = document.getText(currentToken.range);
-            partial = partial.trim().substring(0, partial.includes(' ') ? partial.indexOf(' ') : partial.length);
+            let partial = document.getText(currentToken.range).trim();
+
+            if (partial.includes(' ')) {
+                partial = partial.split(' ').pop() || '';
+            }
 
             results = getPotentialDocForPartial(partial)
                 .map(doc => {
