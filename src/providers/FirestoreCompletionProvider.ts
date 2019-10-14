@@ -15,6 +15,8 @@ export class FirestoreCompletionProvider implements CompletionItemProvider {
             if (!currentToken) {
                 return [];
             }
+            
+            console.log(currentToken.scopes);
 
             let partial = document.getText(currentToken.range).trim();
 
