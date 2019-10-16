@@ -1,7 +1,7 @@
 import { MarkdownString, MarkedString } from 'vscode';
 import { typeDoc } from './documentation/typeDocumentation';
 import { methodDoc } from './documentation/methodDocumentation';
-import { Documentation, FlatDoc, DocumentationValue } from './documentation/types';
+import { Documentation, FlatDoc, DocumentationValue, Scope, scopes } from './documentation/types';
 import { keywordDoc } from './documentation/keywordDocumentation';
 
 const completeDocs = { ...typeDoc, ...methodDoc, ...keywordDoc };
@@ -63,7 +63,7 @@ const combineStrings = (first: string | MarkdownString, second: string | Markdow
 // FIXME: duplicates(get!)
 const flatDocs = combine(flatten(typeDoc), flatten(methodDoc, true), flatten(keywordDoc));
 
-const isInvalidToken = (token: string) => !/[a-zA-Z0-9-_.]+/.test(token); 
+const isInvalidToken = (token: string) => !/[a-zA-Z0-9-_.]+/.test(token);
 
 export const getDocForToken = (token: string, markedWord: string): string | MarkdownString => {
     if (isInvalidToken(token)) {
@@ -95,4 +95,28 @@ export const getPotentialDocForPartial = (partial: string) => {
         .map(value => [value, flatDocs[value]]);
 
     return potentialDocs;
+};
+
+// Suggestion: getPotentialDocForPartial(partial).inScope(scope)
+
+export const getPotentialDocForPartialScoped = (partial: string, scope: string | Scope) => {
+    if (isScope(scope)) {
+        let potentialDocs = Object.keys(keywordDoc)
+            .filter(value => (keywordDoc[value].scopes || [scope]).includes(scope))
+            .map(value => [value, flatDocs[value]]);
+
+        if (scope === 'meta.allow.body.if.fs' || scope === 'meta.function.expression.fs') {
+            potentialDocs = potentialDocs.concat(Object.keys(methodDoc).map(value => [value, flatDocs[value]]));
+        }
+
+        // TODO: if partial contains a dot (request.asdf) => serve subDocs
+
+        return potentialDocs;
+    }
+
+    return [];
+};
+
+const isScope = (x: string): x is Scope => {
+    return (scopes as readonly string[]).includes(x);
 };
