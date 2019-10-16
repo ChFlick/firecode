@@ -8,6 +8,10 @@ export const scopes = ['source.firebase',
     'meta.function.fs',
     'meta.function.expression.fs',
     'meta.allow.fs',
+    'meta.allow.head.fs',
+    'meta.allow.scope.fs',
+    'meta.allow.body.fs',
+    'meta.allow.body.if.fs',
     'meta.functioncall.fs',
     'string.quoted.firestorerules'] as const;
 export type Scope = typeof scopes[number];

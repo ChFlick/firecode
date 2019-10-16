@@ -152,31 +152,68 @@
 		},
 		"allow-statement": {
 			"name": "meta.allow.fs",
-			"begin": "(allow)\\s((write|read|get|list|update|delete|create)(\\s*,\\s*(write|read|get|list|update|delete|create))*)\\s*\\:",
+			"begin": "(allow)",
 			"beginCaptures": {
 				"1": {
 					"name": "storage.type.function.fs"
-				},
-				"2": {
-					"name": "support.type.builtin.fs"
 				}
 			},
 			"end": "\\;|(?=allow)|(?=match)|\\}",
 			"patterns": [
 				{
-					"include": "#meta.allow.scope.fs"
+					"include": "#allow-head"
 				},
 				{
-					"include": "#if-statement"
-				},
+					"include": "#allow-body"
+				}
+			]
+		},
+		"allow-body": {
+			"name": "meta.allow.body.fs",
+			"begin": "\\:",
+			"end": "(?=\\;)|(?=allow)|(?=match)|(?=\\})",
+			"patterns": [
+				{
+					"include": "#allow-if-statement"
+				}
+			]
+		},
+		"allow-if-statement": {
+			"name": "meta.allow.body.if.fs",
+			"begin": "(if)",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.control.fs"
+				}
+			},
+			"end": "(?=\\;)|(?=allow)|(?=match)|(?=\\})",
+			"patterns": [
 				{
 					"include": "#expression"
 				}
 			]
 		},
-		"if-statement": {
-			"name": "keyword.control.fs",
-			"match": "if"
+		"allow-head": {
+			"name": "meta.allow.head.fs",
+			"begin": "(?<=allow)",fs
+			"end": "(?=(\\:))",
+			"patterns": [
+				{
+					"include": "#allow-scope"
+				}
+			]
+		},
+		"allow-scope": {
+			"name": "meta.allow.scope.fs",
+			"match": "\\s+((write|read|get|list|update|delete|create)(\\s*,\\s*(write|read|get|list|update|delete|create))*)\\s*",
+			"captures": {
+				"1": {
+					"name": "support.type.builtin.fs"
+				},
+				"2": {
+					"name": "support.type.builtin.fs"
+				}
+			}
 		},
 		"function-call": {
 			"name": "meta.functioncall.fs",

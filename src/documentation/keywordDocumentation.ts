@@ -28,34 +28,38 @@ export const keywordDoc: Readonly<Documentation> = {
     },
     read: {
         doc: 'Any type of read request. Equals `get` and `list`',
-        scopes: ['meta.allow.fs'],
+        scopes: ['meta.allow.head.fs', 'meta.allow.scope.fs'],
     },
     get: {
         doc: 'Read requests for single documents or files.',
-        scopes: ['meta.allow.fs'],
+        scopes: ['meta.allow.head.fs', 'meta.allow.scope.fs'],
     },
     list: {
         doc: 'Read requests for queries and collections.',
-        scopes: ['meta.allow.fs'],
+        scopes: ['meta.allow.head.fs', 'meta.allow.scope.fs'],
     },
     write: {
         doc: 'Any type of write request. Equals `create`, `update`, and `delete`',
-        scopes: ['meta.allow.fs'],
+        scopes: ['meta.allow.head.fs', 'meta.allow.scope.fs'],
     },
     create: {
         doc: 'Write new documents or files',
-        scopes: ['meta.allow.fs'],
+        scopes: ['meta.allow.head.fs', 'meta.allow.scope.fs'],
     },
     update: {
         doc: 'Write to existing documents or files',
-        scopes: ['meta.allow.fs'],
+        scopes: ['meta.allow.head.fs', 'meta.allow.scope.fs'],
     },
     delete: {
         doc: 'Delete data',
-        scopes: ['meta.allow.fs'],
+        scopes: ['meta.allow.head.fs', 'meta.allow.scope.fs'],
     },
     return: {
         doc: 'returns the value',
         scopes: ['meta.function.fs'],
     },
+    if: {
+        doc: '',
+        scopes: ['meta.allow.body.fs']
+    }
 };

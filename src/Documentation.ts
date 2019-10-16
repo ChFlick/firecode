@@ -105,7 +105,7 @@ export const getPotentialDocForPartialScoped = (partial: string, scope: string |
             .filter(value => (keywordDoc[value].scopes || [scope]).includes(scope))
             .map(value => [value, flatDocs[value]]);
 
-        if (scope === 'meta.allow.fs' || scope === 'meta.function.expression.fs') {
+        if (scope === 'meta.allow.body.if.fs' || scope === 'meta.function.expression.fs') {
             potentialDocs = potentialDocs.concat(Object.keys(methodDoc).map(value => [value, flatDocs[value]]));
         }
 
