@@ -1,5 +1,5 @@
 import { CompletionItem, CompletionItemKind, CompletionItemProvider, CompletionList, Position, TextDocument } from 'vscode';
-import { getPotentialDocForPartial } from '../Documentation';
+import { getPotentialDocForPartial, getPotentialDocForPartialScoped } from '../Documentation';
 import { tokenize } from '../utils/textmate/textmate';
 
 export class FirestoreCompletionProvider implements CompletionItemProvider {
@@ -15,11 +15,16 @@ export class FirestoreCompletionProvider implements CompletionItemProvider {
             if (!currentToken) {
                 return [];
             }
+            
+            console.log(currentToken.scopes);
 
-            let partial = document.getText(currentToken.range);
-            partial = partial.trim().substring(0, partial.includes(' ') ? partial.indexOf(' ') : partial.length);
+            let partial = document.getText(currentToken.range).trim();
 
-            results = getPotentialDocForPartial(partial)
+            if (partial.includes(' ')) {
+                partial = partial.split(' ').pop() || '';
+            }
+
+            results = getPotentialDocForPartialScoped(partial, currentToken.scopes.slice(-1)[0])
                 .map(doc => {
                     const docName = doc[0];
                     const item = new CompletionItem(typeof docName === 'string' ? docName : docName.value, CompletionItemKind.Class);
