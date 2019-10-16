@@ -107,7 +107,7 @@
 		},
 		"function-declaration": {
 			"name": "meta.function.fs",
-			"begin": "(function)\\s+(\\w+)\\s?(\\()([^)]*)(\\))\\s+\\{",
+			"begin": "(function)\\s+(\\w+)\\s?(\\()([^)]*)(\\))\\s*\\{",
 			"beginCaptures": {
 				"1": {
 					"name": "storage.type.function.fs"
@@ -163,6 +163,9 @@
 			},
 			"end": "\\;|(?=allow)|(?=match)|\\}",
 			"patterns": [
+				{
+					"include": "#meta.allow.scope.fs"
+				},
 				{
 					"include": "#if-statement"
 				},
