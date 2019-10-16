@@ -53,5 +53,9 @@ export const keywordDoc: Readonly<Documentation> = {
     delete: {
         doc: 'Delete data',
         scopes: ['meta.allow.fs'],
-    }
+    },
+    return: {
+        doc: 'returns the value',
+        scopes: ['meta.function.fs'],
+    },
 };
