@@ -195,7 +195,7 @@
 		},
 		"allow-head": {
 			"name": "meta.allow.head.fs",
-			"begin": "(?<=allow)",fs
+			"begin": "(?<=allow)",
 			"end": "(?=(\\:))",
 			"patterns": [
 				{
