@@ -22,6 +22,11 @@ Works for `.rule` and `.rules` files.
 ### Autocomplete Suggestions
 ![Autocompletion](./resources/autocomplete.gif)
 
+### Autoformatting
+![Autoformatting](./resources/autoformat.gif)
+
+Only works for valid rules and currently only formats the indentation.
+
 ## Known Issues
 
 * The documentation of the get(/path/) function is currently not correct
@@ -30,4 +35,5 @@ This extension is still very fresh and under development, so if you have any iss
 
 ## Development
 
-Currently, I'm working on improving the syntax highlighting even more but the focus is on adding code completion.
+There are still some todos with autocompletion and mouseover information, but currently I'm working on the autoformatter.  
+I'm planning to create a [prettier](https://prettier.io/) plugin for this purpose.

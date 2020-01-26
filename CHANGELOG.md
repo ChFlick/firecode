@@ -4,17 +4,25 @@ All notable changes to the "firecode" extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.2.0] - 2020-01-26
+### Added
+- Basic autoformatting option
+
 ## [1.1.4] - 2019-11-30
+### Fixed
 - Grammar bugfix.
 
 ## [1.1.2] - 2019-10-09
+### Changed
 - Some internal improvements.
 - Updated README to show the autocompletion.
 
 ## [1.1.1] - 2019-10-05
-- Add a first draft of the completion support.
+### Added
+- First draft of the completion support.
 
 ## [1.0.1] - 2019-08-21
+### Added
 - Improve hover information support by creating a tree structure to get the correct context information.
 
 ## [1.0.0] - 2019-08-17
