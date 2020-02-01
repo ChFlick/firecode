@@ -5,6 +5,6 @@ import { getTokenUntil } from '../utils';
 export class FirestoreHoverProvider implements HoverProvider {
     provideHover(document: TextDocument, position: Position, token: CancellationToken): ProviderResult<Hover> {
         const markedWord = document.getText(document.getWordRangeAtPosition(position));
-        return new Hover(getDocForToken(getTokenUntil(document, position), markedWord));
+        return new Hover(getDocForToken(getTokenUntil(document, position), markedWord) || '');
     }
 }
