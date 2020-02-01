@@ -93,7 +93,7 @@
 		"matcher-path": {
 			"name": "string.unquoted.fs",
 			"begin": "(?<=match) \\/",
-			"end": "(?= \\{$)",
+			"end": " ",
 			"patterns": [
 				{
 					"include": "#matcher-param"
@@ -102,7 +102,7 @@
 		},
 		"matcher-param": {
 			"name": "variable.parameter.fs",
-			"begin": "\\{\\s*",
+			"begin": "\\{\\w+",
 			"end": "\\}"
 		},
 		"function-declaration": {
