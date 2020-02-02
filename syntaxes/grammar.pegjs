@@ -8,7 +8,8 @@ VersionNumber
   = "1"/"2"
  
 Service
-  = "service cloud.firestore" _ "{" _ content:Content _ "}" { return ["service", content]; }
+  = "service cloud.firestore" _ "{" _ content:Content _ "}"
+  { return ["service", content]; }
 
 Content
   = Matcher (_ Matcher)*
@@ -26,10 +27,12 @@ Function
   { return ["function", name, params, body]; }
 
 MatcherPath 
-  = "/" chars: [a-zA-Z\/=\*{}]+ __ { return "/" + chars.join("") }
+  = "/" chars: [a-zA-Z\/=\*{}]+ __
+  { return "/" + chars.join("") }
 
 AllowScope 
-  = AllowScopes _ ("," _ AllowScopes)*
+  = mainsope:AllowScopes _ morescopes:("," _ AllowScopes)*
+   { return [mainsope, ...morescopes.flatMap(x => x).filter(x => x && x !== "," && x !== "")] }
 AllowScopes 
   = "write"/"read"/"get"/"list"/"update"/"delete"/"create"
 
@@ -41,16 +44,20 @@ FunctionBody
   = "return" __ (TrueFalse / Expression) (";"/__)
 
 Expression 
-  = chars: [a-zA-Z\/=\*{}()$.[\]]+ { return chars.join(""); }
+  = chars: [a-zA-Z\/=\*{}()$.[\]]+
+  { return chars.join(""); }
 
 TrueFalse
   = "true" / "false"
   
 Word
-  = chars: [a-zA-Z]+ { return chars.join(""); }
+  = chars: [a-zA-Z]+
+  { return chars.join(""); }
 
 __ "required_whitespace"
-  = [ \t\n\r]+  { return null; }
+  = [ \t\n\r]+ 
+  { return null; }
   
 _ "whitespace"
-  = [ \t\n\r]* { return null; }
+  = [ \t\n\r]*
+  { return null; }
