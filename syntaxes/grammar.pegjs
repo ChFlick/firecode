@@ -19,7 +19,7 @@ Matcher
   { return ["match", path, matching]; }
   
 Allow 
-  = _ "allow" __ scope:AllowScope ":" __ "if" __ condition:TrueFalse [;]? _
+  = _ "allow" __ scope:AllowScope ":" __ "if" __ condition:Condition [;]? _
   { return ["allow", scope, condition]; }
   
 Function
@@ -47,11 +47,29 @@ Expression
   = chars: [a-zA-Z\/=\*{}()$.[\]]+
   { return chars.join(""); }
 
+Condition
+  = TrueFalse / "request." (Word "."?)+ _ Operator _ (Word "."?)+ / FunctionCall
+  
+FunctionCall
+  = Word "(" FunctionCallParameters? ")"
+FunctionCallParameters
+  = WordDotWord/String ("," _ WordDotWord/String)*
+
 TrueFalse
   = "true" / "false"
   
+Operator
+  = "=="/"!="/"&&"/"is"/"||"/"<="/">="/"<"/">"/"!"
+  
+String
+  = chars:("'" [^']+ "'")
+  { return chars.join(""); }
+  
+WordDotWord
+  = Word ("." Word)*
+
 Word
-  = chars: [a-zA-Z]+
+  = chars: [a-zA-Z0-9_]+
   { return chars.join(""); }
 
 __ "required_whitespace"
