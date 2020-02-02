@@ -1,4 +1,4 @@
-import { parser } from '../../parser/parser';
+import * as parser from '../../parser/parser';
 import { describe } from 'mocha';
 import { expect } from 'chai';
 
@@ -15,9 +15,9 @@ describe('the parser', () => {
       }
     `.trim();
 
-    parser.feed(basicRules);
+    const result = parser.parse(basicRules);
 
-    expect(parser.results).to.be.an('array').with.length.gt(0);
+    expect(result).to.be.an('array').with.length.gt(0);
   });
 })
 
