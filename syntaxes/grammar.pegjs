@@ -2,20 +2,20 @@ Main
   = Version Service
   
 Version
-  = "rules_version = '" vn:VersionNumber "';" _ { return ["version", vn]; }
+  = "rules_version = '" vn:VersionNumber "'" ";"? EOL { return ["version", vn]; }
   
 VersionNumber
   = "1"/"2"
  
 Service
-  = "service cloud.firestore" _ "{" _ content:Content _ "}"
+  = "service cloud.firestore" _ "{" EOL _ content:Content _ "}"
   { return ["service", content]; }
 
 Content
   = Matcher (_ Matcher)*
 
 Matcher
-  = _ "match" __ path:MatcherPath "{" _ matching:(Matcher/Allow/Function)+ _ "}"
+  = _ "match" __ path:MatcherPath "{" EOL matching:(Matcher/Allow/Function/Comment)+ _ "}"
   { return ["match", path, matching]; }
   
 Allow 
@@ -48,12 +48,13 @@ Expression
   { return chars.join(""); }
 
 Condition
-  = TrueFalse / "request." (Word "."?)+ _ Operator _ (Word "."?)+ / FunctionCall
+  = TrueFalse / WordDotWord _ Operator _ (Word "."?)+ / FunctionCall
   
 FunctionCall
   = Word "(" FunctionCallParameters? ")"
 FunctionCallParameters
-  = WordDotWord/String ("," _ WordDotWord/String)*
+  = left: WordDotWord/ left: String right: ("," _ WordDotWord/String)*
+  { return [left, ...right]; } 
 
 TrueFalse
   = "true" / "false"
@@ -63,14 +64,32 @@ Operator
   
 String
   = chars:("'" [^']+ "'")
-  { return chars.join(""); }
+  { return chars.flatMap(x => x).join(""); }
   
 WordDotWord
-  = Word ("." Word)*
+  = first: Word second: ("." Word)*
+  { return first + second.flatMap(x => x).join(""); }
 
 Word
   = chars: [a-zA-Z0-9_]+
   { return chars.join(""); }
+  
+EOL
+  = _ Comment? LineTerminatorSequence?
+  
+Comment "comment"
+  = _ "//" comment: (!LineTerminator .)*
+  { return comment.join(""); }
+
+LineTerminator
+  = [\n\r\u2028\u2029]
+  
+LineTerminatorSequence "end of line"
+  = "\n"
+  / "\r\n"
+  / "\r"
+  / "\u2028"
+  / "\u2029"
 
 __ "required_whitespace"
   = [ \t\n\r]+ 
