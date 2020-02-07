@@ -21,13 +21,14 @@ Service
   { return ["service", content]; }
 
 Content
-  = Matcher (_ Matcher)*
+  = left: Matcher right: (_ Matcher)*
+  { return right ? [left, ...right.map(v => v[1])] : [left]; }
 
 Matcher
   = _ MatchToken __ path:MatcherPath EOL
-  "{" EOL
-  matcherBody: (Matcher/Allow/Function/Comment)+ _
-  "}" EOL
+    "{" EOL
+    matcherBody: (Matcher/Allow/Function/Comment)+ _
+    "}" EOL
   { return ["match", path, matcherBody]; }
   
 Allow 
@@ -36,7 +37,14 @@ Allow
   { return ["allow", scope, condition]; }
 
 Condition
-  = (TrueFalse / FunctionCall / WordDotWord _ Operator _ (FunctionCall / WordDotWord)) ";"? EOL
+  = (
+  TrueFalse 
+  	{ return text(); }
+  / FunctionCall 
+  	{ return text(); }
+  / left: WordDotWord _ op: Operator _ right: (FunctionCall / WordDotWord)
+  	{ return [left, op, right]; }  
+  ) ";"? EOL
   
 Function
   = _ "function" __ name:FunctionName "(" params:FunctionParameters? ")" _ "{" __ body:FunctionBody __ "}"
@@ -62,12 +70,13 @@ FunctionBody
 Expression 
   = chars: [a-zA-Z\/=\*{}()$.[\]]+
   { return chars.join(""); }
-
+  
 FunctionCall
-  = WordDotWord "(" _ FunctionCallParameters? _ ")"
+  = name: WordDotWord "(" _ params: FunctionCallParameters? _ ")"
+  { return [name, params]}
 FunctionCallParameters
   = left: FunctionCallParameter right: ("," _ FunctionCallParameter)*
-  { return [left, ...right]; } 
+  { return [left, ...right.map(v => v[2])]; } 
 FunctionCallParameter
   = WordDotWord/String/DecimalLiteral
 
@@ -91,10 +100,11 @@ Word
   
 EOL
   = _ Comment? LineTerminatorSequence?
-  
+  {}
+
 Comment "comment"
   = _ "//" comment: (!LineTerminator .)*
-  { return comment.join(""); }
+  { return comment.flatMap(x => x).join("").trim(); }
 
 DecimalLiteral
   = DecimalIntegerLiteral "." DecimalDigit* 
@@ -124,8 +134,8 @@ LineTerminatorSequence "end of line"
 
 __ "required_whitespace"
   = [ \t\n\r]+ 
-  { return null; }
+  {}
   
 _ "whitespace"
   = [ \t\n\r]*
-  { return null; }
+  {}
