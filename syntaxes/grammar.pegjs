@@ -7,7 +7,7 @@ MatchToken    = "match"
 VersionToken  = "rules_version"
 
 Version
-  = VersionToken _ "=" _ "'" vn:VersionNumber "'" ";"? EOL
+  = VersionToken _ "=" _ "'" vn:VersionNumber "'" _ ";"? EOL
   { return ["version", vn]; }
   
 VersionNumber
@@ -23,7 +23,7 @@ Service
 Content
   = Matcher (_ Matcher)*
 
-Matcher "matcher"
+Matcher
   = _ MatchToken __ path:MatcherPath EOL
   "{" EOL
   matcherBody: (Matcher/Allow/Function/Comment)+ _
@@ -31,9 +31,12 @@ Matcher "matcher"
   { return ["match", path, matcherBody]; }
   
 Allow 
-  = _ AllowToken __ scope: AllowScope ":" (EOL/__)
-  "if" __ condition:Condition [;]? _
+  = _ AllowToken __ scope: AllowScope ":" (EOL/__) _
+  IfToken __ condition: Condition ";"? EOL
   { return ["allow", scope, condition]; }
+
+Condition
+  = (TrueFalse / FunctionCall / WordDotWord _ Operator _ (FunctionCall / WordDotWord)) ";"? EOL
   
 Function
   = _ "function" __ name:FunctionName "(" params:FunctionParameters? ")" _ "{" __ body:FunctionBody __ "}"
@@ -60,14 +63,13 @@ Expression
   = chars: [a-zA-Z\/=\*{}()$.[\]]+
   { return chars.join(""); }
 
-Condition
-  = TrueFalse / WordDotWord _ Operator _ (Word "."?)+ / FunctionCall
-  
 FunctionCall
-  = Word "(" FunctionCallParameters? ")"
+  = WordDotWord "(" _ FunctionCallParameters? _ ")"
 FunctionCallParameters
-  = left: WordDotWord/ left: String right: ("," _ WordDotWord/String)*
+  = left: FunctionCallParameter right: ("," _ FunctionCallParameter)*
   { return [left, ...right]; } 
+FunctionCallParameter
+  = WordDotWord/String/DecimalLiteral
 
 TrueFalse
   = "true" / "false"
@@ -93,6 +95,22 @@ EOL
 Comment "comment"
   = _ "//" comment: (!LineTerminator .)*
   { return comment.join(""); }
+
+DecimalLiteral
+  = DecimalIntegerLiteral "." DecimalDigit* 
+  	{ return { type: "Literal", value: parseFloat(text()) }; }
+  / "." DecimalDigit+
+  	{ return { type: "Literal", value: parseFloat(text()) }; }
+
+DecimalIntegerLiteral
+  = "0"
+  / [-]? NonZeroDigit DecimalDigit*
+
+DecimalDigit
+  = [0-9]
+
+NonZeroDigit
+  = [1-9]
 
 LineTerminator
   = [\n\r\u2028\u2029]
