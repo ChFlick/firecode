@@ -1,25 +1,38 @@
 Main
-  = Version Service
-  
+  = Version? Service
+
+AllowToken    = "allow"
+IfToken       = "if"
+MatchToken    = "match"
+VersionToken  = "rules_version"
+
 Version
-  = "rules_version = '" vn:VersionNumber "'" ";"? EOL { return ["version", vn]; }
+  = VersionToken _ "=" _ "'" vn:VersionNumber "'" ";"? EOL
+  { return ["version", vn]; }
   
 VersionNumber
   = "1"/"2"
  
 Service
-  = "service cloud.firestore" _ "{" EOL _ content:Content _ "}"
+  = "service cloud.firestore" EOL
+  "{" EOL 
+  content:Content EOL
+  "}" EOL
   { return ["service", content]; }
 
 Content
   = Matcher (_ Matcher)*
 
-Matcher
-  = _ "match" __ path:MatcherPath "{" EOL matching:(Matcher/Allow/Function/Comment)+ _ "}"
-  { return ["match", path, matching]; }
+Matcher "matcher"
+  = _ MatchToken __ path:MatcherPath EOL
+  "{" EOL
+  matcherBody: (Matcher/Allow/Function/Comment)+ _
+  "}" EOL
+  { return ["match", path, matcherBody]; }
   
 Allow 
-  = _ "allow" __ scope:AllowScope ":" __ "if" __ condition:Condition [;]? _
+  = _ AllowToken __ scope: AllowScope ":" (EOL/__)
+  "if" __ condition:Condition [;]? _
   { return ["allow", scope, condition]; }
   
 Function
