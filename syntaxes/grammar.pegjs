@@ -33,12 +33,15 @@ Matcher
   
 Allow 
   = _ AllowToken __ scope: AllowScope ":" (EOL/__) _
-  IfToken __ condition: Condition ";"? EOL
+  IfToken __ condition: ConjunctedCondition ";"? EOL
   { return ["allow", scope, condition]; }
 
+ConjunctedCondition
+  = Condition (_ EOL ("&&" / "||") _ EOL _ Condition)*
 Condition
   = (
-  "(" Condition (("&&" / "||") Condition)* ")"
+  "(" EOL c: Condition EOL ")" EOL
+   { return ["(", c, ")"]; }
   /
   TrueFalse 
   	{ return text(); }
