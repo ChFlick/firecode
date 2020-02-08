@@ -33,7 +33,7 @@ Matcher
   
 Allow 
   = _ AllowToken __ scope: AllowScope ":" (EOL/__) _
-  IfToken __ condition: ConjunctedCondition ";"? EOL
+  IfToken __ condition: ConjunctedCondition
   { return ["allow", scope, condition]; }
 
 ConjunctedCondition
@@ -42,22 +42,43 @@ Condition
   = (
   "(" EOL c: Condition EOL ")" EOL
    { return ["(", c, ")"]; }
-  /
-  TrueFalse 
-  	{ return text(); }
-  / FunctionCall 
-  	{ return text(); }
-  / left: WordDotWord _ op: Operator _ right: (FunctionCall / WordDotWord)
+  / left: (ValueStatement / Literal) _ op: Operator _ right: (ValueStatement / Literal)
   	{ return [left, op, right]; }  
-  ) ";"? EOL
+  / ValueStatement / Literal
+  	{ return text(); }
+  ) (";" EOL / EOL)
+  
+ValueStatement
+  = "[" _ ValueStatement _ "]"
+  / left: FunctionCall "." right: ValueStatement
+  	{ return left + "." + right; }
+  / FunctionCall
+  	{ return text(); }
+  / left: WordDotWord "." right: ValueStatement
+  	{ return left + "." + right; }
+  / WordDotWord
+  	{ return text(); }
+    
+Literal
+  = String / SlashString / DecimalLiteral / LiteralArray
+  
+LiteralArray
+  = "[" (Literal (_ "," _ Literal)*)? "]"
+  
   
 Function
-  = _ "function" __ name:FunctionName "(" params:FunctionParameters? ")" _ "{" __ body:FunctionBody __ "}"
+  = _ "function" __ name:FunctionName "(" params:FunctionParameters? ")" _ "{" (EOL/__) body:FunctionBody (EOL/__) "}"
   { return ["function", name, params, body]; }
 
 MatcherPath 
-  = "/" chars: [a-zA-Z\/=\*{}]+ __
-  { return "/" + chars.join("") }
+  = "/" first: PathSegment following: MatcherPath*
+  { return "/" + first + following.flatMap(x => x).join(""); }
+  
+PathSegment
+  = Word 
+  { return text(); }
+  / "{" Word ("=**")? "}"
+  { return text(); }
 
 AllowScope 
   = mainsope:AllowScopes _ morescopes:("," _ AllowScopes)*
@@ -70,20 +91,21 @@ FunctionName
 FunctionParameters 
   = Word ("," _ Word)*
 FunctionBody 
-  = "return" __ (TrueFalse / Expression) (";"/__)
-
-Expression 
-  = chars: [a-zA-Z\/=\*{}()$.[\]]+
-  { return chars.join(""); }
+  = "return" (EOL/__) _ ConjunctedCondition EOL ";"? EOL
   
 FunctionCall
-  = name: WordDotWord "(" _ params: FunctionCallParameters? _ ")"
+  = name: WordDotWord _ "(" _ params: FunctionCallParameters? _ ")"
   { return [name, params]}
 FunctionCallParameters
   = left: FunctionCallParameter right: ("," _ FunctionCallParameter)*
   { return [left, ...right.map(v => v[2])]; } 
 FunctionCallParameter
-  = WordDotWord/String/DecimalLiteral
+  = Literal / ValueStatement
+//  = "[" _ FunctionCallParameter _ "]"
+//  / WordDotWord / String / DecimalLiteral / SlashString
+  
+SlashString
+  = "/" (Word / "$(" Word ")") SlashString*
 
 TrueFalse
   = "true" / "false"
