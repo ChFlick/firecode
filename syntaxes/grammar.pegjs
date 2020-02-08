@@ -38,6 +38,8 @@ Allow
 
 Condition
   = (
+  "(" Condition (("&&" / "||") Condition)* ")"
+  /
   TrueFalse 
   	{ return text(); }
   / FunctionCall 
