@@ -35,7 +35,7 @@ service cloud.firestore {
             match /twoLevel/{two} {
                match /threeLevel/{three} {
                   allow write, read: if request.resource.data.asdf is int &&
-                                    request.resource.data.asdf is 333;
+                                    request.resource.data.asdf == 333;
                }
             }
          }
@@ -49,7 +49,7 @@ service cloud.firestore {
                                && request.resource.data.rank is int
                                && request.resource.data.name is string
                                && request.resource.data.description is string
-                               && request.resource.data.imageUrl is string path
+                               && request.resource.data.imageUrl is path
                                && request.resource.data.timeSlot.from is timestamp
                                && request.resource.data.timeSlot.to is timestamp
                                && request.resource.data.timeSlot.to > request.resource.data.timeSlot.from;
