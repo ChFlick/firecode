@@ -40,10 +40,13 @@ ConjunctedCondition
   = Condition (_ EOL ("&&" / "||") _ EOL _ Condition)*
 Condition
   = (
-  "(" EOL c: Condition EOL ")" EOL
+    "!" Condition
+  / "(" EOL c: Condition EOL ")" EOL
    { return ["(", c, ")"]; }
-  / left: (ValueStatement / Literal) _ op: Operator _ right: (ValueStatement / Literal)
+  / left: (ValueStatement / Literal) _ op: ValueOperator _ right: (ValueStatement / Literal)
   	{ return [left, op, right]; }  
+  / left: (ValueStatement / Literal) _ "is" _ right: DataType
+  	{ return [left, "is", right]; }  
   / ValueStatement / Literal
   	{ return text(); }
   ) (";" EOL / EOL)
@@ -110,8 +113,8 @@ SlashString
 TrueFalse
   = "true" / "false"
   
-Operator
-  = "=="/"!="/"&&"/"is"/"||"/"<="/">="/"<"/">"/"!"
+ValueOperator
+  = "=="/"!="/"&&"/"||"/"<="/">="/"<"/">"
   
 String
   = chars:("'" [^']+ "'")
@@ -148,6 +151,23 @@ DecimalDigit
 
 NonZeroDigit
   = [1-9]
+  
+DataType
+  = "bool"
+  / "bytes"
+  / "constraint"
+  / "duration"
+  / "float"
+  / "int"
+  / "latlng"
+  / "list"
+  / "set"
+  / "number"
+  / "map"
+  / "string"
+  / "timestamp"
+  / "path"
+  / "map_diff"
 
 LineTerminator
   = [\n\r\u2028\u2029]
