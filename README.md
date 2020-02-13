@@ -35,5 +35,7 @@ This extension is still very fresh and under development, so if you have any iss
 
 ## Development
 
-There are still some todos with autocompletion and mouseover information, but currently I'm working on the autoformatter.  
-I'm planning to create a [prettier](https://prettier.io/) plugin for this purpose.
+There are still some todos with autocompletion and mouseover information, but currently I'm working on the autoformatter.
+
+I'm currently creating a [prettier](https://prettier.io/) plugin for this purpose.  
+The repository (WIP) can be found [here](https://github.com/ChFlick/prettier-plugin-firestore-rules)
