@@ -239,7 +239,7 @@
 		},
 		"operators": {
 			"name": "keyword.operator.firestorerules",
-			"match": "(==|!=|&&|is|\\|{2}|<=|>=|<|>|!)"
+			"match": "(==|!=|&&|is(?= )|\\|{2}|<=|>=|<|>|!)"
 		},
 		"strings": {
 			"patterns": [
