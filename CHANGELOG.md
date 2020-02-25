@@ -4,7 +4,7 @@ All notable changes to the "firecode" extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
-## [1.2.2] - unreleased
+## [1.2.2] - 2020-02-25
 ### Fixed
 - Whitespaces in `rules_version = '2';`
 - The wrong detection of the "is" operator in a word (eg isSomething)
