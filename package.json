@@ -4,7 +4,7 @@
 	"description": "Firestore Security Rules Syntax Highlighting and Suggestions",
 	"publisher": "ChFlick",
 	"icon": "resources/firecode.png",
-	"version": "1.2.1",
+	"version": "1.2.2",
 	"homepage": "https://github.com/ChFlick/firecode/blob/master/README.md",
 	"keywords": [
 		"firebase",
