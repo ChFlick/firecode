@@ -40,11 +40,11 @@
 		},
 		"version": {
 			"name": "comment.block.documentation.fs",
-			"match": "rules_version? =? '\\d'?;"
+			"match": "rules_version?\\s*=?\\s*'\\d'?\\s*;"
 		},
 		"firestore-root": {
 			"name": "meta.root.fs",
-			"begin": "(service) (cloud)\\.(firestore) {",
+			"begin": "(service)\\s+(cloud)\\.(firestore)\\s*{",
 			"beginCaptures": {
 				"1": {
 					"name": "keyword.control.fs"
