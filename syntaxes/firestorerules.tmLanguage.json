@@ -158,7 +158,7 @@
 					"name": "storage.type.function.fs"
 				}
 			},
-			"end": "\\;|(?=allow)|(?=match)|\\}",
+			"end": "\\;|(?=allow)|(?=match)|(?=\\})",
 			"patterns": [
 				{
 					"include": "#allow-head"
