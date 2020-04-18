@@ -1,8 +1,8 @@
 import { DocumentFormattingEditProvider, FormattingOptions, Position, Range, TextDocument, TextEdit } from 'vscode';
 import { tokenize } from '../utils/textmate/textmate';
 
-const intendScopes = ['meta.root.fs', 'meta.matcher.fs', 'meta.function.expression.fs']
-const reduceWith = /match|service|^\s*\}\s*$/g;
+const intendScopes = ['meta.root.fs', 'meta.matcher.fs', 'meta.function.fs'];
+const reduceWith = /match|service|function|^\s*\}\s*$/g;
 const concatedAndOr = /^\s*(&&|\|\|)/g;
 
 export class FirestoreFormattingProvider implements DocumentFormattingEditProvider {
