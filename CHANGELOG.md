@@ -4,7 +4,7 @@ All notable changes to the "firecode" extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
-## [Unreleased] - 2020-19-04
+## [1.2.3] - 2020-19-04
 ### Fixed
 - **let** variable declaration in function bodies.
 - Comments in function bodies.
