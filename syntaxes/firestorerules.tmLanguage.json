@@ -131,6 +131,9 @@
 					"include": "#function-expression"
 				},
 				{
+					"include": "#comments"
+				},
+				{
 					"include": "#variable-declaration"
 				}
 			]
