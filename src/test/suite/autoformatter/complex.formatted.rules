@@ -2,6 +2,8 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     function hasValue(value, uid, carId) {
+      // a comment
+      let someValue = true || request.resource.data.size() == 2;
       return get(/databases/$(database)/documents/someData/$(uid)/subCollection/$(carId)).data.someData.hasAll([value])
     }
     

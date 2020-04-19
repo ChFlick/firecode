@@ -132,6 +132,9 @@
 				},
 				{
 					"include": "#comments"
+				},
+				{
+					"include": "#variable-declaration"
 				}
 			]
 		},
@@ -148,6 +151,24 @@
 				{
 					"include": "#comments"
 				},
+				{
+					"include": "#expression"
+				}
+			]
+		},
+		"variable-declaration": {
+			"name": "meta.variable.declaration.fs",
+			"begin": "(let)\\s+(\\w+)\\s+=",
+			"beginCaptures": {
+				"1": {
+					"name": "storage.type.fs"
+				},
+				"2": {
+					"name": "variable.other.fs"
+				}
+			},
+			"end": "(?=(let|return))",
+			"patterns": [
 				{
 					"include": "#expression"
 				}
