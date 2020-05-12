@@ -56,12 +56,12 @@
 		]
 	},
 	"scripts": {
-		"vscode:prepublish": "yarn run compile && yarn test && yarn test-legacy",
+		"vscode:prepublish": "yarn run compile && yarn test-legacy && yarn test",
 		"compile": "tsc -p ./",
 		"watch": "tsc -watch -p ./",
 		"pretest": "yarn run compile",
 		"test": "electron-rebuild -v 7.2.4 && node ./out/test/runTest.js",
-		"test-legacy": "electron-rebuild -v 3.1.3 && node ./out/test/runTestLegacy.js"
+		"test-legacy": "electron-rebuild -v 4.2.7 && node ./out/test/runTestLegacy.js"
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.1",
