@@ -44,7 +44,7 @@
 		},
 		"firestore-root": {
 			"name": "meta.root.fs",
-			"begin": "(service)\\s+(cloud)\\.(firestore)\\s*{",
+			"begin": "(service)\\s+(cloud|firebase)\\.(firestore|storage)\\s*{",
 			"beginCaptures": {
 				"1": {
 					"name": "keyword.control.fs"
