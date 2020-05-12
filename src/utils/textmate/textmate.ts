@@ -20,6 +20,20 @@ function getCoreNodeModule(moduleName: string) {
   return null;
 }
 
+function getRegistry(tm: any) {
+  // Older versions dont need onigLib
+  // try {
+  //   return new tm.Registry();
+  // } catch (err) { }
+
+  return new tm.Registry({
+    onigLib: Promise.resolve({
+      createOnigScanner: (sources: readonly string[]) => new oniguruma.OnigScanner(sources),
+      createOnigString: (str: string) => new oniguruma.OnigString(str)
+    })
+  });
+}
+
 const grammarPath = path.resolve(__dirname + '/../../../syntaxes/firestorerules.tmLanguage.json');
 
 let grammar: any;
@@ -29,12 +43,7 @@ async function getGrammar() {
   }
 
   const tm = await getCoreNodeModule('vscode-textmate');
-  const registry = new tm.Registry({
-    onigLib: Promise.resolve({
-      createOnigScanner: (sources: readonly string[]) => new oniguruma.OnigScanner(sources),
-      createOnigString: (str: string) => new oniguruma.OnigString(str)
-    })
-  });
+  const registry = getRegistry(tm);
   const grammarFile = fs.readFileSync(grammarPath).toString();
   grammar = await registry.addGrammar(tm.parseRawGrammar(grammarFile, grammarPath));
 
