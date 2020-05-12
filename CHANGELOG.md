@@ -4,7 +4,11 @@ All notable changes to the "firecode" extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
-## [1.2.3] - 2020-19-04
+## [1.2.4] - 2020-05-12
+### Added
+- Support for firebase storage rules top-level `service firebase.storage`
+
+## [1.2.3] - 2020-04-19
 ### Fixed
 - **let** variable declaration in function bodies.
 - Comments in function bodies.
