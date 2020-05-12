@@ -4,6 +4,10 @@ All notable changes to the "firecode" extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.2.5] - 2020-05-12
+### Fixed
+- The extension possibly not working at all due to rebuild issues.
+
 ## [1.2.4] - 2020-05-12
 ### Added
 - Support for firebase storage rules top-level `service firebase.storage`
