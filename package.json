@@ -56,21 +56,27 @@
 		]
 	},
 	"scripts": {
-		"vscode:prepublish": "yarn run compile",
+		"vscode:prepublish": "yarn run compile && yarn test && yarn test-legacy",
 		"compile": "tsc -p ./",
 		"watch": "tsc -watch -p ./",
 		"pretest": "yarn run compile",
-		"test": "node ./out/test/runTest.js"
+		"test": "node ./out/test/runTest.js",
+		"test-legacy": "node ./out/test/runTestLegacy.js"
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.1",
 		"@types/mocha": "^7.0.2",
 		"@types/node": "^13.5.0",
+		"@types/oniguruma": "^7.0.1",
 		"@types/vscode": "^1.2.0",
+		"electron-rebuild": "^1.10.1",
 		"glob": "^7.1.4",
 		"mocha": "^7.0.1",
 		"tslint": "^6.0.0",
 		"typescript": "^3.3.1",
 		"vscode-test": "^1.0.2"
+	},
+	"dependencies": {
+		"oniguruma": "^7.2.1"
 	}
 }

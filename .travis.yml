@@ -11,7 +11,16 @@ install:
     fi
 
 script:
-  - yarn && yarn compile && yarn test
+  - |
+    echo ">>>> Compile Extension"
+    yarn && yarn compile
+    echo ">>>> Compile complete"
+    echo ">>>> Test Extension"
+    yarn test
+    echo ">>>> Test complete"
+    echo ">>>> Test Extension on Legacy VS Code"
+    yarn test-legacy
+    echo ">>>> Test complete"
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

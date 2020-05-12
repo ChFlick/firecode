@@ -1,5 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs';
+import * as oniguruma from 'oniguruma';
+
 import { env, TextDocument, Range } from 'vscode';
 import { Token } from './scope-info';
 
@@ -27,7 +29,12 @@ async function getGrammar() {
   }
 
   const tm = await getCoreNodeModule('vscode-textmate');
-  const registry = new tm.Registry();
+  const registry = new tm.Registry({
+    onigLib: Promise.resolve({
+      createOnigScanner: (sources: readonly string[]) => new oniguruma.OnigScanner(sources),
+      createOnigString: (str: string) => new oniguruma.OnigString(str)
+    })
+  });
   const grammarFile = fs.readFileSync(grammarPath).toString();
   grammar = await registry.addGrammar(tm.parseRawGrammar(grammarFile, grammarPath));
 
