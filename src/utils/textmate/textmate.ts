@@ -1,9 +1,10 @@
 import * as path from 'path';
 import * as fs from 'fs';
-import * as oniguruma from 'oniguruma';
-
 import { env, TextDocument, Range } from 'vscode';
 import { Token } from './scope-info';
+import * as textmate from 'vscode-textmate';
+
+type TextmateType = typeof textmate;
 
 /**
  * Returns a node module installed with VSCode, or null if it fails.
@@ -20,17 +21,30 @@ function getCoreNodeModule(moduleName: string) {
   return null;
 }
 
-function getRegistry(tm: any) {
-  // Older versions dont need onigLib
-  // try {
-  //   return new tm.Registry();
-  // } catch (err) { }
+function getOnigWasmBin() {
+  try {
+    return fs.readFileSync(`${env.appRoot}/node_modules.asar/vscode-oniguruma/release/onig.wasm`).buffer;
+  } catch (err) { }
+
+  try {
+    return fs.readFileSync(`${env.appRoot}/node_modules/vscode-oniguruma/release/onig.wasm`).buffer;
+  } catch (err) { }
+
+  console.error("Could not load the onig.wasm");
+  
+  return null;
+}
+
+async function getRegistry(tm: TextmateType) {
+  const onigurumaModule = getCoreNodeModule('vscode-oniguruma');
+  await onigurumaModule.loadWASM(getOnigWasmBin());
 
   return new tm.Registry({
     onigLib: Promise.resolve({
-      createOnigScanner: (sources: readonly string[]) => new oniguruma.OnigScanner(sources),
-      createOnigString: (str: string) => new oniguruma.OnigString(str)
-    })
+      createOnigScanner: (sources: string[]) => new onigurumaModule.OnigScanner(sources),
+      createOnigString: (str: string) => new onigurumaModule.OnigString(str)
+    }),
+    loadGrammar: async () => null,
   });
 }
 
@@ -42,8 +56,8 @@ async function getGrammar() {
     return grammar;
   }
 
-  const tm = await getCoreNodeModule('vscode-textmate');
-  const registry = getRegistry(tm);
+  const tm: TextmateType = await getCoreNodeModule('vscode-textmate');
+  const registry = await getRegistry(tm);
   const grammarFile = fs.readFileSync(grammarPath).toString();
   grammar = await registry.addGrammar(tm.parseRawGrammar(grammarFile, grammarPath));
 

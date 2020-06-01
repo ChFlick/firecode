@@ -60,8 +60,8 @@
 		"compile": "tsc -p ./",
 		"watch": "tsc -watch -p ./",
 		"pretest": "yarn run compile",
-		"test": "electron-rebuild -v 7.2.4 && node ./out/test/runTest.js",
-		"test-legacy": "electron-rebuild -v 4.2.7 && node ./out/test/runTestLegacy.js"
+		"test": "node ./out/test/runTest.js",
+		"test-legacy": "node ./out/test/runTestLegacy.js"
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.1",
@@ -69,14 +69,12 @@
 		"@types/node": "^13.5.0",
 		"@types/oniguruma": "^7.0.1",
 		"@types/vscode": "^1.2.0",
-		"electron-rebuild": "^1.10.1",
 		"glob": "^7.1.4",
 		"mocha": "^7.0.1",
 		"tslint": "^6.0.0",
 		"typescript": "^3.3.1",
-		"vscode-test": "^1.0.2"
+		"vscode-test": "^1.0.2",
+		"vscode-textmate": "^5.1.1"
 	},
-	"dependencies": {
-		"oniguruma": "^7.2.1"
-	}
+	"dependencies": {}
 }
