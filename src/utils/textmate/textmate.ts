@@ -37,15 +37,21 @@ function getOnigWasmBin() {
 
 async function getRegistry(tm: TextmateType) {
   const onigurumaModule = getCoreNodeModule('vscode-oniguruma');
-  await onigurumaModule.loadWASM(getOnigWasmBin());
 
-  return new tm.Registry({
-    onigLib: Promise.resolve({
-      createOnigScanner: (sources: string[]) => new onigurumaModule.OnigScanner(sources),
-      createOnigString: (str: string) => new onigurumaModule.OnigString(str)
-    }),
-    loadGrammar: async () => null,
-  });
+  if(onigurumaModule) {
+    await onigurumaModule.loadWASM(getOnigWasmBin());
+  
+    return new tm.Registry({
+      onigLib: Promise.resolve({
+        createOnigScanner: (sources: string[]) => new onigurumaModule.OnigScanner(sources),
+        createOnigString: (str: string) => new onigurumaModule.OnigString(str)
+      }),
+      loadGrammar: async () => null,
+    });
+  }
+
+  // @ts-ignore
+  return new tm.Registry();
 }
 
 const grammarPath = path.resolve(__dirname + '/../../../syntaxes/firestorerules.tmLanguage.json');
