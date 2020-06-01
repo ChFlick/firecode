@@ -10,17 +10,27 @@ install:
       /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
     fi
 
-script:
-  - |
-    echo ">>>> Compile Extension"
-    yarn && yarn compile
-    echo ">>>> Compile complete"
-    echo ">>>> Test Extension"
-    yarn test
-    echo ">>>> Test complete"
-    echo ">>>> Test Extension on Legacy VS Code"
-    yarn test-legacy
-    echo ">>>> Test complete"
+jobs:
+  include:
+    - stage: compile
+      script:
+        - |
+          echo ">>>> Compile Extension"
+          yarn && yarn compile
+          echo ">>>> Compile complete"
+    - stage: test
+      name: "Test"
+      script:
+        - |
+          echo ">>>> Test Extension"
+          yarn test
+          echo ">>>> Test complete"
+    - name: "Legacy Test"
+      script:
+        - |
+          echo ">>>> Test Extension"
+          yarn test-legacy
+          echo ">>>> Test complete"
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
