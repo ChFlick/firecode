@@ -17,20 +17,17 @@ jobs:
         - |
           echo ">>>> Compile Extension"
           yarn && yarn compile
-          echo ">>>> Compile complete"
     - stage: test
       name: "Test"
       script:
         - |
           echo ">>>> Test Extension"
           yarn test
-          echo ">>>> Test complete"
     - name: "Legacy Test"
       script:
         - |
           echo ">>>> Test Extension"
           yarn test-legacy
-          echo ">>>> Test complete"
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

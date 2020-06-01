@@ -61,7 +61,7 @@
 		"watch": "tsc -watch -p ./",
 		"pretest": "yarn run compile",
 		"test": "node ./out/test/runTest.js",
-		"test-legacy": "node ./out/test/runTestLegacy.js"
+		"test-legacy": "yarn compile && node ./out/test/runTestLegacy.js"
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.1",
