@@ -3,8 +3,14 @@
 	"displayName": "Firestore Rules",
 	"description": "Firestore Security Rules Syntax Highlighting and Suggestions",
 	"publisher": "ChFlick",
+	"author": {
+		"name": "Christoph Flick",
+		"url": "https://christophflick.de/",
+		"email": "hi+removethisforspamreasons@christophflick.de"
+	},
+	"license": "MIT",
 	"icon": "resources/firecode.png",
-	"version": "1.2.5",
+	"version": "1.2.6",
 	"homepage": "https://github.com/ChFlick/firecode/blob/master/README.md",
 	"keywords": [
 		"firebase",
@@ -60,7 +66,7 @@
 		"compile": "tsc -p ./",
 		"watch": "tsc -watch -p ./",
 		"pretest": "yarn run compile",
-		"test": "node ./out/test/runTest.js",
+		"test": "yarn pretest && node ./out/test/runTest.js",
 		"test-legacy": "yarn compile && node ./out/test/runTestLegacy.js"
 	},
 	"devDependencies": {
@@ -73,6 +79,7 @@
 		"mocha": "^7.0.1",
 		"tslint": "^6.0.0",
 		"typescript": "^3.3.1",
+		"vscode": "^1.1.37",
 		"vscode-test": "^1.0.2",
 		"vscode-textmate": "^5.1.1"
 	},
