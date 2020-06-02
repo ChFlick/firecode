@@ -4,6 +4,10 @@ All notable changes to the "firecode" extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.2.6] - 2020-06-02
+### Fixed
+- Textmate/Oniguruma issues in recent VS Code versions.
+
 ## [1.2.5] - 2020-05-12
 ### Fixed
 - The extension possibly not working at all due to rebuild issues.
