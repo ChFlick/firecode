@@ -12,11 +12,16 @@ install:
 
 jobs:
   include:
-    - stage: compile
+    - stage: build
       script:
         - |
-          echo ">>>> Compile Extension"
-          yarn && yarn compile
+          echo ">>>> Build Extension"
+          yarn && yarn build
+    - stage: lint
+      script:
+        - |
+        echo ">>>> Lint Extension"
+        yarn lint
     - stage: test
       name: "Test"
       script:

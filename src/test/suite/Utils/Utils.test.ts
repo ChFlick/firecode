@@ -1,5 +1,5 @@
 import * as assert from 'assert';
-import { before, describe } from 'mocha';
+import { describe } from 'mocha';
 
 import * as vscode from 'vscode';
 import { getWholeToken, getTokenUntil } from '../../../utils';

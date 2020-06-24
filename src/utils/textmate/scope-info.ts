@@ -1,6 +1,5 @@
 import * as vscode from 'vscode'
 import { Range, TextDocument } from 'vscode';
-import { constructor } from 'stream';
 
 /**
  * A grammar
@@ -36,7 +35,7 @@ export class Token {
   range: Range;
   document: vscode.TextDocument;
 
-  static create(token: any, line: number, document: vscode.TextDocument) {
+  static create(token: IToken, line: number, document: vscode.TextDocument): Token {
     return new Token(token.scopes,
       new Range(line, token.startIndex, line, token.endIndex), document);
   }
@@ -48,7 +47,7 @@ export class Token {
   }
 
   inScope(str: string): boolean {
-    for (let scope of this.scopes) {
+    for (const scope of this.scopes) {
       if (scope.indexOf(str) !== -1) {
         return true;
       }

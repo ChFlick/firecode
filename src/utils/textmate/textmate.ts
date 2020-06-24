@@ -1,7 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import { env, TextDocument, Range } from 'vscode';
-import { Token } from './scope-info';
+import { Token, IToken } from './scope-info';
 import * as textmate from 'vscode-textmate';
 
 type TextmateType = typeof textmate;
@@ -12,11 +12,15 @@ type TextmateType = typeof textmate;
 function getCoreNodeModule(moduleName: string) {
   try {
     return require(`${env.appRoot}/node_modules.asar/${moduleName}`);
-  } catch (err) { }
+  } catch (err) {
+    // do nothing
+  }
 
   try {
     return require(`${env.appRoot}/node_modules/${moduleName}`);
-  } catch (err) { }
+  } catch (err) {
+    // do nothing
+  }
 
   return null;
 }
@@ -24,11 +28,15 @@ function getCoreNodeModule(moduleName: string) {
 function getOnigWasmBin() {
   try {
     return fs.readFileSync(`${env.appRoot}/node_modules.asar/vscode-oniguruma/release/onig.wasm`).buffer;
-  } catch (err) { }
+  } catch (err) {
+    // do nothing
+  }
 
   try {
     return fs.readFileSync(`${env.appRoot}/node_modules/vscode-oniguruma/release/onig.wasm`).buffer;
-  } catch (err) { }
+  } catch (err) {
+    // do nothing
+  }
 
   console.error("Could not load the onig.wasm");
   
@@ -50,13 +58,14 @@ async function getRegistry(tm: TextmateType) {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return new tm.Registry();
 }
 
 const grammarPath = path.resolve(__dirname + '/../../../syntaxes/firestorerules.tmLanguage.json');
 
-let grammar: any;
+let grammar: textmate.IGrammar;
 async function getGrammar() {
   if (grammar) {
     return grammar;
@@ -71,14 +80,14 @@ async function getGrammar() {
 }
 
 export async function tokenize(document: TextDocument): Promise<Token[][]> {
-  let grammar = await getGrammar();
+  const grammar = await getGrammar();
 
-  var ruleStack: any;
-  var tokens: Token[][] = [];
+  let ruleStack: textmate.StackElement | null = null;
+  const tokens: Token[][] = [];
   for (let i = 0; i < document.lineCount; i++) {
-    let line = document.getText(new Range(i, 0, i + 1, 0));
-    var r = grammar.tokenizeLine(line, ruleStack!);
-    tokens.push(r.tokens.map((v: any) => Token.create(v, i, document)));
+    const line = document.getText(new Range(i, 0, i + 1, 0));
+    const r = grammar.tokenizeLine(line, ruleStack);
+    tokens.push(r.tokens.map((v: IToken) => Token.create(v, i, document)));
     ruleStack = r.ruleStack;
   }
   return tokens;

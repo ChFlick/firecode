@@ -18,6 +18,7 @@ function positionAt(text: string, offset: number): vscode.Position {
   if (offset > text.length) { offset = text.length; }
   let line = 0;
   let lastIndex = 0;
+  // eslint-disable-next-line no-constant-condition
   while (true) {
     const match = lineEndingRE.exec(text.substring(lastIndex));
     if (!match) {
@@ -94,20 +95,20 @@ function positionRangeDeltaTranslate(pos: vscode.Position, delta: RangeDelta): v
   }
 }
 
-export function rangeTranslate(range: vscode.Range, delta: RangeDelta) {
+export function rangeTranslate(range: vscode.Range, delta: RangeDelta): vscode.Range {
   return new vscode.Range(
     positionRangeDeltaTranslateStart(range.start, delta),
     positionRangeDeltaTranslateEnd(range.end, delta)
   );
 }
 
-export function rangeContains(range: vscode.Range, pos: vscode.Position, exclStart = false, inclEnd = false) {
+export function rangeContains(range: vscode.Range, pos: vscode.Position, exclStart = false, inclEnd = false): boolean {
   return range.start.isBeforeOrEqual(pos)
     && (!exclStart || !range.start.isEqual(pos))
     && ((inclEnd && range.end.isEqual(pos)) || range.end.isAfter(pos));
 }
 
-export function maxPosition(x: vscode.Position, y: vscode.Position) {
+export function maxPosition(x: vscode.Position, y: vscode.Position): vscode.Position {
   if (x.line < y.line) {
     return x;
   } if (x.line < x.line) {

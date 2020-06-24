@@ -1,5 +1,5 @@
 import { CompletionItem, CompletionItemKind, CompletionItemProvider, CompletionList, Position, TextDocument } from 'vscode';
-import { getPotentialDocForPartial, getPotentialDocForPartialScoped } from '../Documentation';
+import { getPotentialDocForPartialScoped } from '../Documentation';
 import { tokenize } from '../utils/textmate/textmate';
 
 export class FirestoreCompletionProvider implements CompletionItemProvider {

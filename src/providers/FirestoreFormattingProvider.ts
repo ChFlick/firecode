@@ -8,7 +8,7 @@ const concatedAndOr = /^\s*(&&|\|\|)/g;
 export class FirestoreFormattingProvider implements DocumentFormattingEditProvider {
 
     async provideDocumentFormattingEdits(document: TextDocument, options: FormattingOptions): Promise<TextEdit[]> {
-        let results: TextEdit[] = [];
+        const results: TextEdit[] = [];
 
         try {
             const tokenizedDoc = await tokenize(document);

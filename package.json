@@ -62,7 +62,8 @@
 		]
 	},
 	"scripts": {
-		"vscode:prepublish": "yarn build && yarn test-legacy && yarn test",
+		"vscode:prepublish": "yarn lint && yarn build && yarn test-legacy && yarn test",
+		"lint": "eslint . --ext .js,.jsx,.ts,.tsx",
 		"build": "tsc -p ./",
 		"watch": "tsc -watch -p ./",
 		"pretest": "yarn build",
@@ -75,9 +76,11 @@
 		"@types/node": "^13.5.0",
 		"@types/oniguruma": "^7.0.1",
 		"@types/vscode": "^1.2.0",
+		"@typescript-eslint/eslint-plugin": "^3.4.0",
+		"@typescript-eslint/parser": "^3.4.0",
+		"eslint": "^7.3.1",
 		"glob": "^7.1.4",
 		"mocha": "^7.0.1",
-		"tslint": "^6.0.0",
 		"typescript": "^3.3.1",
 		"vscode-test": "^1.0.2",
 		"vscode-textmate": "^5.1.1"

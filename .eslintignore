@@ -1,0 +1,6 @@
+node_modules
+out
+coverage
+jest.config.js
+src/parser/parser.js
+.eslintrc.js

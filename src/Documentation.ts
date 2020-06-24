@@ -6,7 +6,7 @@ import { keywordDoc } from './documentation/keywordDocumentation';
 
 const completeDocs = { ...typeDoc, ...methodDoc, ...keywordDoc };
 
-const flatten = (documentation: Documentation, staticValue: boolean = false): FlatDoc => {
+const flatten = (documentation: Documentation, staticValue = false): FlatDoc => {
     let flatDoc: FlatDoc = {};
     for (const key of Object.keys(documentation)) {
         // With duplicate keys append content
@@ -26,7 +26,7 @@ const flatten = (documentation: Documentation, staticValue: boolean = false): Fl
     return flatDoc;
 };
 
-const createDocString = (documentation: DocumentationValue, staticValue: boolean = false): string | MarkdownString => {
+const createDocString = (documentation: DocumentationValue, staticValue = false): string | MarkdownString => {
     if (!documentation.header) {
         return documentation.doc;
     }
@@ -89,7 +89,7 @@ export const getDocForToken = (token: string, markedWord: string): string | Mark
     return current ? current.doc : '';
 };
 
-export const getPotentialDocForPartial = (partial: string) => {
+export const getPotentialDocForPartial = (partial: string): (string | MarkdownString)[][] => {
     const potentialDocs = Object.keys(flatDocs)
         .filter(value => value.startsWith(partial))
         .map(value => [value, flatDocs[value]]);
@@ -99,7 +99,7 @@ export const getPotentialDocForPartial = (partial: string) => {
 
 // Suggestion: getPotentialDocForPartial(partial).inScope(scope)
 
-export const getPotentialDocForPartialScoped = (partial: string, scope: string | Scope) => {
+export const getPotentialDocForPartialScoped = (partial: string, scope: string | Scope): (string | MarkdownString)[][] => {
     if (isScope(scope)) {
         let potentialDocs = Object.keys(keywordDoc)
             .filter(value => (keywordDoc[value].scopes || [scope]).includes(scope))
