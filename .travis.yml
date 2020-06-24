@@ -20,8 +20,8 @@ jobs:
     - stage: lint
       script:
         - |
-        echo ">>>> Lint Extension"
-        yarn lint
+          echo ">>>> Lint Extension"
+          yarn lint
     - stage: test
       name: "Test"
       script:
