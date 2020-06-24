@@ -62,12 +62,12 @@
 		]
 	},
 	"scripts": {
-		"vscode:prepublish": "yarn run compile && yarn test-legacy && yarn test",
-		"compile": "tsc -p ./",
+		"vscode:prepublish": "yarn build && yarn test-legacy && yarn test",
+		"build": "tsc -p ./",
 		"watch": "tsc -watch -p ./",
-		"pretest": "yarn run compile",
+		"pretest": "yarn build",
 		"test": "yarn pretest && node ./out/test/runTest.js",
-		"test-legacy": "yarn compile && node ./out/test/runTestLegacy.js"
+		"test-legacy": "yarn build && node ./out/test/runTestLegacy.js"
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.1",
@@ -79,7 +79,6 @@
 		"mocha": "^7.0.1",
 		"tslint": "^6.0.0",
 		"typescript": "^3.3.1",
-		"vscode": "^1.1.37",
 		"vscode-test": "^1.0.2",
 		"vscode-textmate": "^5.1.1"
 	},
