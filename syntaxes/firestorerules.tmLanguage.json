@@ -10,6 +10,9 @@
 			"include": "#version"
 		},
 		{
+			"include": "#function-declaration"
+		},
+		{
 			"include": "#comments"
 		}
 	],
@@ -60,6 +63,9 @@
 			"patterns": [
 				{
 					"include": "#matcher"
+				},
+				{
+					"include": "#function-declaration"
 				}
 			]
 		},
