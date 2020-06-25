@@ -1,5 +1,11 @@
 rules_version = '2';
+function rootFunction() {
+   return true;
+}
 service cloud.firestore {
+   function serviceFunction() {
+      return true;
+   }
    match /databases/{database}/documents {
       function hasValue(value, uid, carId) {
          let someValue = true || request.resource.data.size() == 2;
