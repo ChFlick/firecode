@@ -4,9 +4,14 @@ All notable changes to the "firecode" extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.2.9] - 2020-07-06
+### Fixed
+- Syntax highlighting for comments in the service scope.
+- Syntax highlighting for allow statements without if/condition, like `allow read;`. 
+
 ## [1.2.8] - 2020-06-26
 ### Fixed
-- Enabled syntax highlighting for functions outside of the matcher scope.
+- Syntax highlighting for functions outside of the matcher scope.
 
 ## [1.2.7] - 2020-06-25
 - Not properly published - did not change anything.
