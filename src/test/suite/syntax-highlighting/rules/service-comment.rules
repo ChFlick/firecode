@@ -1,0 +1,7 @@
+rules_version = '2';
+service cloud.firestore {
+    // test comment
+    match /databases/{database}/documents {
+        allow read, write: if true;
+    }
+}

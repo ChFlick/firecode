@@ -2,16 +2,18 @@ rules_version = '2';
 function rootFunction() {
    return true;
 }
+// test
 service cloud.firestore {
    function serviceFunction() {
       return true;
    }
+   // test
    match /databases/{database}/documents {
-      function hasValue(value, uid, carId) {
+      // test
+      function hasValue(value, uid, carId) { //test
          let someValue = true || request.resource.data.size() == 2;
          return get(/databases/$(database)/documents/someData/$(uid)/subCollection/$(carId)).data.someData.hasAll([value])
       }
-      
       match /someData/{targetUserId} {
          allow write: if false;
          allow read: if request.auth.uid == targetUserId 
@@ -21,7 +23,6 @@ service cloud.firestore {
             // another comment
          }
       }
-      
       match /users/{userId} {
          allow write, read: if false;
       }
