@@ -198,6 +198,9 @@
 				},
 				{
 					"include": "#allow-body"
+				},
+				{
+					"include": "#comments"
 				}
 			]
 		},
@@ -229,7 +232,7 @@
 		"allow-head": {
 			"name": "meta.allow.head.fs",
 			"begin": "(?<=allow)",
-			"end": "(?=(\\:))",
+			"end": "(?=\\:)|(?=\\/\\/)|(?=\\;)|(?=allow)|(?=match)",
 			"patterns": [
 				{
 					"include": "#allow-scope"

@@ -19,7 +19,7 @@ service cloud.firestore {
          allow read: if request.auth.uid == targetUserId 
          match /subCollection/{carId} {
             allow read: if hasValue('bla', request.auth.uid, carId);
-            allow update: if false; // Some comment
+            allow update; // Some comment
             // another comment
          }
       }
