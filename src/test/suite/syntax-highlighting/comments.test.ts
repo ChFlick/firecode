@@ -41,4 +41,12 @@ describe('the should highlight comments', () => {
         
         expect(flatten(tokenizedLines[3])).contains('comment.line');
     });
+
+     test('at allow level without condition', async () => {
+        const document = await vscode.workspace.openTextDocument(TEST_RULES_PATH + '/allow-without-condition-comment.rules');
+
+        const tokenizedLines = await tokenize(document);
+        
+        expect(flatten(tokenizedLines[3])).contains('comment.line');
+    });
 });
