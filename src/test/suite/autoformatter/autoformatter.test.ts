@@ -24,6 +24,17 @@ describe('the autoformatter', () => {
 
         assert.strictEqual(formattedResult, formattedDocument.getText());
     });
+
+    test('should format a function named "matches" correctly', async () => {
+        const formattedDocument = await vscode.workspace
+            .openTextDocument(__dirname + '/../../../../src/test/suite/autoformatter/functionNamedMatches.formatted.rules');
+        const document = await vscode.workspace
+            .openTextDocument(__dirname + '/../../../../src/test/suite/autoformatter/functionNamedMatches.test.rules');
+
+        const formattedResult = await getDocumentFormatted(document);
+
+        assert.strictEqual(formattedResult, formattedDocument.getText());
+    });
 });
 
 async function getDocumentFormatted(document: vscode.TextDocument) {

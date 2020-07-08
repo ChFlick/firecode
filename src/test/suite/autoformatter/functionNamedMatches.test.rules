@@ -1,0 +1,11 @@
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isWritingImage() {
+    return request.resource.contentType.matches('image/.*');
+    }
+  }
+}
