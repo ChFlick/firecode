@@ -2,7 +2,7 @@ import { DocumentFormattingEditProvider, FormattingOptions, Position, Range, Tex
 import { tokenize } from '../utils/textmate/textmate';
 
 const intendScopes = ['meta.root.fs', 'meta.matcher.fs', 'meta.function.fs'];
-const reduceWith = /match|service|function|^\s*\}\s*$/g;
+const reduceWith = /match\s|service\s|function\s|^\s*\}\s*$/g;
 const concatedAndOr = /^\s*(&&|\|\|)/g;
 
 export class FirestoreFormattingProvider implements DocumentFormattingEditProvider {
