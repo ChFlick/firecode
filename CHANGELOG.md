@@ -4,6 +4,11 @@ All notable changes to the "firecode" extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.3.0] - 2020-09-15
+### Added
+- Experimental support for formatting using [prettier](https://prettier.io/) and [prettier-plugin-firestore-rules](https://github.com/ChFlick/prettier-plugin-firestore-rules).
+- Configuration flag `firestorerules.usePrettierFormatter` to switch between the prettier and default formatter.
+
 ## [1.2.11] - 2020-09-15
 ### Fixed
 - Formatting whitespace on empty lines

@@ -27,6 +27,10 @@ Works for `.rule` and `.rules` files.
 
 Only works for valid rules and currently only formats the indentation.
 
+**Experimental:**
+Version 1.3.0 intoduced a new formatter option which can be enabled in the configuration, `firestorerules.usePrettierFormatter`.
+When the option is enabled, the project uses [prettier](https://prettier.io/) and the [prettier-plugin-firestore-rules](https://github.com/ChFlick/prettier-plugin-firestore-rules) to format the firestore rules.
+
 ## Known Issues
 
 * The documentation of the get(/path/) function is currently not correct
@@ -35,7 +39,6 @@ This extension is still very fresh and under development, so if you have any iss
 
 ## Development
 
-There are still some todos with autocompletion and mouseover information, but currently I'm working on the autoformatter.
+I'm working on improving the prettier-plugin-firestore-rules formatter as well as the corresponding [firestore rules parser (WIP)](https://github.com/ChFlick/prettier-plugin-firestore-rules).
 
-I'm currently creating a [prettier](https://prettier.io/) plugin for this purpose.  
-The repository (WIP) can be found [here](https://github.com/ChFlick/prettier-plugin-firestore-rules)
+When the parser is in a proper shape, it will be included to provide validation of the firestore rules.
