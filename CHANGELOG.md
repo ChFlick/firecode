@@ -4,6 +4,10 @@ All notable changes to the "firecode" extension will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.2.11] - 2020-09-15
+### Fixed
+- Formatting whitespace on empty lines
+
 ## [1.2.10] - 2020-07-08
 ### Fixed
 - Formatting when the line contaned the words match, allow, or function not as keywords.
