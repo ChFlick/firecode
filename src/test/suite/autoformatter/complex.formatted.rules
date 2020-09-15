@@ -6,7 +6,7 @@ service cloud.firestore {
       let someValue = true || request.resource.data.size() == 2;
       return get(/databases/$(database)/documents/someData/$(uid)/subCollection/$(carId)).data.someData.hasAll([value])
     }
-    
+
     match /someData/{targetUserId} {
       allow write: if false;
       allow read: if request.auth.uid == targetUserId 
@@ -16,11 +16,11 @@ service cloud.firestore {
         // another comment
       }
     }
-    
+
     match /users/{userId} {
       allow write, read: if false;
     }
-    
+
     match /cars/{carId} {
       match /roles/{roleId} {
         allow delete: if get(/databases/$(database)/documents/configurations/someData).data.values.hasAll(request.resource.data.someData)
@@ -29,10 +29,10 @@ service cloud.firestore {
           && request.resource.data.name is string
           && request.resource.data.someData is list
           && hasValue('bla', request.auth.uid, carId);
-        
+
         allow read: if hasValue('bla', request.auth.uid, carId);
       }
-      
+
       match /oneLevel/{one} {
         match /twoLevel/{two} {
           match /threeLevel/{three} {
@@ -41,10 +41,10 @@ service cloud.firestore {
           }
         }
       }
-      
+
       match /store/current/{doc=**} {
         allow read: if request.auth.uid != null;
-        
+
         match /slots/{slotId} {
           allow write: if hasValue('writeSLots', request.auth.uid, carId)
             && request.resource.data.keys().hasOnly(['rank', 'name', 'description', 'imageUrl', 'timeSlot'])
