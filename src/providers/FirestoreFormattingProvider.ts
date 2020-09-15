@@ -1,5 +1,6 @@
-import { DocumentFormattingEditProvider, FormattingOptions, Position, Range, TextDocument, TextEdit } from 'vscode';
+import { DocumentFormattingEditProvider, FormattingOptions, Position, Range, TextDocument, TextEdit, workspace } from 'vscode';
 import { tokenize } from '../utils/textmate/textmate';
+import * as prettier from 'prettier';
 
 const indentationScopes = ['meta.root.fs', 'meta.matcher.fs', 'meta.function.fs'];
 const reduceWith = /match\s|service\s|function\s|^\s*\}\s*$/g;
@@ -8,6 +9,27 @@ const concatedAndOr = /^\s*(&&|\|\|)/g;
 export class FirestoreFormattingProvider implements DocumentFormattingEditProvider {
 
     async provideDocumentFormattingEdits(document: TextDocument, options: FormattingOptions): Promise<TextEdit[]> {
+        console.log(workspace.getConfiguration("firestorerules"));
+
+        if (workspace.getConfiguration("firestorerules").get("usePrettierFormatter")) {
+            console.log("Using prettier formatter");
+
+            const text = document.getText();
+
+            const formattedText = prettier.format(text, {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore custom "firestore" parser is not known in typescript
+                parser: "firestore",
+                useTabs: !options.insertSpaces,
+                tabWidth: options.tabSize
+            });
+            const lastLineId = document.lineCount - 1;
+            const fullRange = new Range(0, 0, lastLineId, document.lineAt(lastLineId).text.length);
+
+            return [TextEdit.replace(fullRange, formattedText)];
+        }
+
+        console.log("Using default formatter");
         const results: TextEdit[] = [];
 
         try {
@@ -23,7 +45,7 @@ export class FirestoreFormattingProvider implements DocumentFormattingEditProvid
                 if (document.lineAt(line).text.trim().length === 0) {
                     numberOfIndentations = 0;
                 }
-                
+
                 // Do not indent match, service and closing bracket lines
                 if (document.lineAt(line).text.match(reduceWith)) {
                     numberOfIndentations--;
