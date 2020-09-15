@@ -1,11 +1,11 @@
 rules_version ='2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    
+
     function isVizmoAdmin() {
       return authed() && request.auth.token.vizmoAdmin
     }
-    
+
     //vizmo-admin rules
     match /companies/{document=**} {
       allow read: if true//isVizmoAdmin()
