@@ -9,11 +9,7 @@ const concatedAndOr = /^\s*(&&|\|\|)/g;
 export class FirestoreFormattingProvider implements DocumentFormattingEditProvider {
 
     async provideDocumentFormattingEdits(document: TextDocument, options: FormattingOptions): Promise<TextEdit[]> {
-        console.log(workspace.getConfiguration("firestorerules"));
-
         if (workspace.getConfiguration("firestorerules").get("usePrettierFormatter")) {
-            console.log("Using prettier formatter");
-
             const text = document.getText();
 
             const formattedText = prettier.format(text, {
@@ -28,8 +24,7 @@ export class FirestoreFormattingProvider implements DocumentFormattingEditProvid
 
             return [TextEdit.replace(fullRange, formattedText)];
         }
-
-        console.log("Using default formatter");
+        
         const results: TextEdit[] = [];
 
         try {
