@@ -82,6 +82,11 @@
   resolved "https://registry.yarnpkg.com/@types/oniguruma/-/oniguruma-7.0.1.tgz#7aaf26127c97d239d24480d931e5b71dc0ddeded"
   integrity sha512-1MxY/ooNO67EQv7Jlv9v/lG1Cll26Uqo4mY00dNPE6TZ62sTJ39WTlEOWbLwn7elRpmqT6hX3fUaBhFeFcQeuA==
 
+"@types/prettier@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.1.1.tgz#be148756d5480a84cde100324c03a86ae5739fb5"
+  integrity sha512-2zs+O+UkDsJ1Vcp667pd3f8xearMdopz/z54i99wtRDI5KLmngk7vlrYZD0ZjKHaROR03EznlBbVY9PfAEyJIQ==
+
 "@types/vscode@^1.2.0":
   version "1.45.0"
   resolved "https://registry.yarnpkg.com/@types/vscode/-/vscode-1.45.0.tgz#8a07e740aa1ca7264da8cb17be87b733836d6c01"
@@ -1096,6 +1101,18 @@ prelude-ls@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"
   integrity sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
+
+prettier-plugin-firestore-rules@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/prettier-plugin-firestore-rules/-/prettier-plugin-firestore-rules-0.1.4.tgz#bdffcf8af70d5b9b90d80681377828db04b53197"
+  integrity sha512-fL5D15NvjsLNh+aUQfunwgvpP08w+lb+U1WFEV1c+ra+DYQ9eTeTz6JoVozG76KwpwVzJ0vZAzVYDsQp89ixCw==
+  dependencies:
+    prettier "^2.1.1"
+
+prettier@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.1.1.tgz#d9485dd5e499daa6cb547023b87a6cf51bee37d6"
+  integrity sha512-9bY+5ZWCfqj3ghYBLxApy2zf6m+NJo5GzmLTpr9FsApsfjriNnS2dahWReHMi7qNPhhHl9SYHJs2cHZLgexNIw==
 
 progress@^2.0.0:
   version "2.0.3"
