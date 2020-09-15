@@ -18,6 +18,11 @@ export class FirestoreFormattingProvider implements DocumentFormattingEditProvid
                         (count, scope) => indentationScopes.includes(scope) ? count + 1 : count, 0
                     )
                 ));
+
+                // Do not indent empty lines at all
+                if (document.lineAt(line).text.trim().length === 0) {
+                    numberOfIndentations = 0;
+                }
                 
                 // Do not indent match, service and closing bracket lines
                 if (document.lineAt(line).text.match(reduceWith)) {
