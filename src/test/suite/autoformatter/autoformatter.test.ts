@@ -38,7 +38,7 @@ describe('the autoformatter', () => {
 });
 
 async function getDocumentFormatted(document: vscode.TextDocument) {
-    vscode.workspace.getConfiguration("firestorerules").update("usePrettierFormatter", false);
+    await vscode.workspace.getConfiguration("firestorerules").update("usePrettierFormatter", false);
     
     const editor = await vscode.window.showTextDocument(document);
     const formatEdits = await vscode.commands.executeCommand('vscode.executeFormatDocumentProvider', document.uri, { tabSize: 2, insertSpaces: true }) as vscode.TextEdit[];
